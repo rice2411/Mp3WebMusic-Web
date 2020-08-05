@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mp3WebMusic_Web.Controllers
 {
-    public class DashboardController: Controller
+    public class TopicController: Controller
     {
-        public IActionResult Index()
+        public ViewResult Topic()
         {
-            return View();
-        }
+            return View("~/Views/Dashboard/Topic/Topic.cshtml");
+        } 
     }
 }
