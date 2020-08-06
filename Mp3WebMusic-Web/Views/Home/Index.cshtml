@@ -1,77 +1,85 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+    <link rel="stylesheet" href="~/css/resize.css" />
 <link rel="stylesheet" href="~/css/musicard.css" />
-<div class="row " >
-    <div class="col-6 text-center">
-        <div class="card" >
-            <img class="card-img-top" src="~/images/icon_zing_mp3_60.png" style="height: 198px; width: 198px" alt="Card image">
-            <div class="card-body">
-                <h4 class="card-title">John Doe</h4>
-                <p class="card-text">Some example text.</p>
-                <a href="#" class="btn btn-primary">See Profile</a>
-            </div>
+
+<div class="row my-2 " >
+    <div class="col-7 ">
+        <div class="card" style="background-color:#372552">
+            <canvas id="weekly-clicks-chart" width="400" height="240"></canvas>
         </div>
     </div>
-    <div class="col-6">
-        <ul>
-            <li class="active">
-                <div class="player my-2" onclick='GetContent("index.html")'>
+    <div class="col-5">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="player" onclick='GetContent("index.html")'>
                     <div class="album-art">
-                        <div class="cover"></div>
+                        <div  id="cover"></div>
                     </div>
                     <div class="description">
-                        <div class="title">Thủy Thần </div>
+                        <div class="title"><b>Thủy Thần </b></div>
                         <div class="sub-title">Bùi Hoàng Nam Đức Anh</div>
                     </div>
-                    <div class="time-indicator">
-                        <i class="mdi mdi-clock"></i>
-                        <span class="time">03:39</span>
+                    <div class="middle2">
+                        <div class="text2"><i class="fal fa-play-circle"></i></div>
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="player my-2" onclick='GetContent("index.html")'>
+
+            <li class="list-group-item">
+                <div class="player" onclick='GetContent("index.html")'>
                     <div class="album-art">
                         <div class="cover"></div>
                     </div>
                     <div class="description">
-                        <div class="title">Thủy Thần </div>
+                        <div class="title"><b>Thủy Thần </b></div>
                         <div class="sub-title">Bùi Hoàng Nam Đức Anh</div>
                     </div>
-                    <div class="time-indicator">
-                        <i class="mdi mdi-clock"></i>
-                        <span class="time">03:39</span>
+                    <div class="middle2">
+                        <div class="text2"><i class="fal fa-play-circle"></i></div>
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="player my-2" onclick='GetContent("index.html")'>
+            <li class="list-group-item">
+                <div class="player" onclick='GetContent("index.html")'>
                     <div class="album-art">
                         <div class="cover"></div>
                     </div>
                     <div class="description">
-                        <div class="title">Thủy Thần </div>
+                        <div class="title"><b>Thủy Thần </b></div>
                         <div class="sub-title">Bùi Hoàng Nam Đức Anh</div>
                     </div>
-                    <div class="time-indicator">
-                        <i class="mdi mdi-clock"></i>
-                        <span class="time">03:39</span>
+                    <div class="middle2">
+                        <div class="text2"><i class="fal fa-play-circle"></i></div>
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="player my-2" onclick='GetContent("index.html")'>
+            <li class="list-group-item">
+                <div class="player" onclick='GetContent("index.html")'>
                     <div class="album-art">
                         <div class="cover"></div>
                     </div>
                     <div class="description">
-                        <div class="title">Thủy Thần </div>
+                        <div class="title"><b>Thủy Thần </b></div>
                         <div class="sub-title">Bùi Hoàng Nam Đức Anh</div>
                     </div>
-                    <div class="time-indicator">
-                        <i class="mdi mdi-clock"></i>
-                        <span class="time">03:39</span>
+                    <div class="middle2">
+                        <div class="text2"><i class="fal fa-play-circle"></i></div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="player" onclick='GetContent("index.html")'>
+                    <div class="album-art">
+                        <div class="cover"></div>
+                    </div>
+                    <div class="description">
+                        <div class="title"><b>Thủy Thần </b></div>
+                        <div class="sub-title">Bùi Hoàng Nam Đức Anh</div>
+                    </div>
+                    <div class="middle2">
+                        <div class="text2"><i class="fal fa-play-circle"></i></div>
                     </div>
                 </div>
             </li>
@@ -79,3 +87,142 @@
         
     </div>
 </div>
+<div class="row text-center">
+    <div class="col-3">
+        <img src="~/images/vpop.jpg" class="image zoom"style="height: 95%; width: 100%" />
+        <div class="middle">
+            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
+        </div>
+        <h3 style="font-size: 14px; color:white">Top 100 Nhạc V-Pop Hay Nhất</h3>
+    </div>
+    <div class="col-3">
+        <img src="~/images/rap.jpg" class="image zoom" style="height: 95%; width: 100%" />
+        <div class="middle">
+            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
+        </div>
+        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Rap Việt Nam Hay Nhất</h3>
+    </div>
+    <div class="col-3">
+        <img src="~/images/nhactre.jpg" class="image zoom"style="height: 95%; width: 100%"/>
+        <div class="middle">
+            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
+        </div>
+        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Trẻ Hay Nhất</h3>
+    </div>
+    <div class="col-3">
+        <img src="~/images/my.jpg" class="image zoom" style="height: 95%; width: 100%" />
+        <div class="middle">
+            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
+        </div>
+        <h3 style="font-size: 14px; color:white">Top 100 Au Mỹ Hay Nhất</h3>
+    </div>
+</div>
+@section Scripts { 
+    <script>
+       
+       
+
+        // defaults for all charts
+        Chart.defaults.global.responsive = true;
+        Chart.defaults.global.defaultFontColor = 'white';
+        Chart.defaults.global.tooltips.mode = 'label';
+        Chart.defaults.global.tooltips.backgroundColor = '#000';
+        Chart.defaults.global.tooltips.titleColor = '#888';
+        Chart.defaults.global.tooltips.bodyColor = '#888';
+
+
+        var data = {
+            //labels: days,
+            labels: ["Feb 7", "Feb 8", "Feb 9", "Feb 10", "Feb 11", "Feb 12", "Feb 13"],
+            datasets: [
+                {
+                    label: "Views",
+                    fill: true,
+              
+                    borderWidth: 2,
+                    borderColor: "#4A90E2",
+                    pointBorderColor: "rgba(220,220,220,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(220,220,220,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    // data: clicks,
+                },
+                {
+                    label: "Views",
+                    fill: true,
+                
+                    borderWidth: 2,
+                    borderColor: "#50E3C2",
+                    pointBorderColor: "rgba(220,220,220,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(220,220,220,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    data: [35, 79, 50, 91, 46, 85, 70],
+                    // data: clicks,
+                },
+                {
+                    label: "Views",
+                    fill: true,
+            
+                    borderWidth: 2,
+                    borderColor: "#E4340D",
+                    pointBorderColor: "rgba(220,220,220,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(220,220,220,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    data: [45, 29, 80, 81, 96, 75, 20],
+                    // data: clicks,
+                },
+            ]
+        };
+        var ctx = $("#weekly-clicks-chart");
+        var weeklyClicksChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            scaleFontColor: 'red',
+            options: {
+                scaleFontColor: 'red',
+                responsive: true,
+                tooltips: {
+                    mode: 'single',
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        drawBorder: false,
+                        ticks: {
+                            fontColor: "#fff", // this here
+                        },
+                    }],
+                    yAxes: [{
+                        display: false,
+                        gridLines: {
+                            display: false,
+                        },
+                    }],
+                }
+            }
+        });
+
+        
+        function GetContent(prm) {
+            window.location.href = prm
+        }
+
+        document.getElementById("cover").style.background = " url('../images/thuythan.jpg') "
+        document.getElementById("cover").style.backgroundSize = "100% 100%";
+    </script>
+}
