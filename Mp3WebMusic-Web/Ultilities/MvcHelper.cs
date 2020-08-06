@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Mp3WebMusic_Web.Ultilities
 {
-    public class Helper
+    public static class MvcHelpers
     {
-        public static string ApiUrl = @"https://localhost:44396";
+        
     }
 }
