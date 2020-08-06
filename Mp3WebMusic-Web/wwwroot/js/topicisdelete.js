@@ -1,23 +1,23 @@
 var topic = {} || topic;
 
-topic.drawTable = function () {
+
+topic.drawTableIsDelete = function () {
     $.ajax({
-        url: "/Topic/GetsTopicIsNotDelete",
+        url: "/Topic/GetsTopicIsDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#tbTopic').empty();
-            $.each(data.topics, function (i,v) {
+            $.each(data.topics, function (i, v) {
                 $('#tbTopic').append(
                     `<tr>
                         <td>${v.topicID}</td>
                         <td>${v.topicName}</td>
                      
                         <td>
-                            <a href="javascripts:;" class="btn btn-success"
-                                       onclick="topic.get(${v.topicID})">Edit</a> 
+                          
                             <a href="javascripts:;" class="btn btn-danger"
-                                        onclick="topic.delete(${v.topicID})">Remove</a>
+                                        onclick="topic.delete(${v.topicID})">Restore</a>
                            
                             
                         </td>
@@ -28,11 +28,6 @@ topic.drawTable = function () {
     });
 };
 
-topic.openAddEditTopic = function () {
-    topic.reset();
-    $('#addEditTopic').modal('show');
-
-};
 topic.delete = function () {
     bootbox.confirm({
         title: "Delete topic?",

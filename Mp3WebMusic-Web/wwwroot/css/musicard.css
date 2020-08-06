@@ -2,15 +2,23 @@
 @import url(https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css);
 
 
-.sub-title{
+.sub-title {
     line-height: 0;
 }
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url(https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css);
+
+.player {
+    background-color: purple;
+}
+
 body .player, html .player, a .player {
+    width: 500px;
     height: 75px;
     background: #0f011a;
     border-bottom: 4px #ccc solid;
     position: relative;
-    color: black;
+    color: white;
     text-align: left;
     text-shadow: none;
     border-bottom: none;
@@ -25,11 +33,11 @@ body .player, html .player, a .player {
         padding: 5px;
     }
 
-        body .player .album-art .cover, html .player .album-art .cover {
+        body .player .album-art .cover, html .player .album-art .cover, body .player .album-art  #cover {
             width: 100%;
             height: 100%;
             box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.25);
-            background: url("https://upload.wikimedia.org/wikipedia/en/6/67/Foo_Fighters_8LP_Sonic_Highways.jpg");
+            /*  background: url("../images/thuythan.jpg");*/
             background-size: cover;
         }
 
@@ -43,7 +51,7 @@ body .player, html .player, a .player {
     }
 
         body .player .description .title, html .player .description .title {
-            color: black;
+            color: white;
             font-size: 24px;
             font-weight: 100;
         }
@@ -52,7 +60,6 @@ body .player, html .player, a .player {
             font-size: 13px;
             font-weight: 100;
             color: #999;
-          
         }
 
     body .player .play-button, html .player .play-button {
@@ -102,8 +109,8 @@ body .player, html .player, a .player {
     body .player .time-indicator, html .player .time-indicator {
         position: absolute;
         right: 11%;
-        top: 60%;
-        font-size: 13px;
+        top: 40%;
+        font-size: 30px;
         font-weight: 100;
     }
 
@@ -119,3 +126,23 @@ body .player, html .player, a .player {
         position: absolute;
         cursor: pointer;
     }
+.list-group-item div:hover {
+    opacity: 0.7;
+}
+.list-group-item:hover .middle2 {
+    opacity: 1;
+}
+.middle2 {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 7.5%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: left;
+}
+.text2 {
+   color: white;
+    font-size: 30px;
+}
