@@ -80,22 +80,21 @@ topic.reset = function () {
 
 }
 topic.add = function () {
-    var saveObj = {};
-    saveObj.TopicName = $('#TopicName').val();
-    saveObj.TopicID = parseInt($('#TopicID').val());
+
+    let topicObj = {};
+    topicObj.topicName = $('#TopicName').val();
     $.ajax({
-        url: `/Topic/Add/`,
+        url: '/Topic/Add',
         method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
+        dataType: "JSON",
+        contentType: "application/JSON",
+        data: JSON.stringify(topicObj),
         success: function (data) {
-            $('#addEditTopic').modal('hide');
+            topic.drawTable();;
             bootbox.alert(data.result.message);
-            topic.drawTable();
         }
-    });
-}
+    })
+};
 topic.edit = function () {
     var saveObj = {};
     saveObj.TopicName = $('#TopicName').val();
@@ -108,7 +107,7 @@ topic.edit = function () {
         data: JSON.stringify(saveObj),
         success: function (data) {
             $('#addEditTopic').modal('hide');
-            bootbox.alert(data.result.message);
+            bootbox.alert(data.result.message); $('#addEditTopic').modal('hide');
             topic.drawTable();
         }
     });
