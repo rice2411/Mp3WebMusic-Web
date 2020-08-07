@@ -17,7 +17,7 @@ topic.drawTableIsDelete = function () {
                         <td>
                           
                             <a href="javascripts:;" class="btn btn-danger"
-                                        onclick="topic.delete(${v.topicID})">Restore</a>
+                                        onclick="topic.restore(${v.topicID})">Restore</a>
                            
                             
                         </td>
