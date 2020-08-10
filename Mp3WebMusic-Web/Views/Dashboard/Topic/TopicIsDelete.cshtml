@@ -1,50 +1,41 @@
 ﻿
 
 
-    <div>
-        <h1>TopicIsDelete Management</h1>
-        
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>TopicID</th>
-                    <th>TopicName</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="tbTopic">
-            </tbody>
-        </table>
-        <!-- Modal -->
-        <div id="addEditTopic" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <form id="fromAddEditTopic">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add New Topic</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <input hidden id="TopicID" name="TopicName">
-                        <div class="modal-body">
-                            <div class="row form-group">
-                                <div class="col-3">
-                                    <label>TopicName</label>
-                                </div>
-                                <div class="col-9">
-                                    <input type="text" id="TopicName" name="TopicName" class="form-control" data-rule-required="true">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                            <a href="javascript:;" class="btn btn-danger" onclick="topic.save()">Save</a>
+<div>
+    <h1>TopicIsDelete Management</h1>
 
-                        </div>
-                    </div>
-                </form>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>TopicID</th>
+                <th>TopicName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tbTopic">
+        </tbody>
+    </table>
+    <!-- Modal Restore-->
+    <div class="modal fade" id="restoreTopic" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Restore Topic</h4>
+                </div>
+                <div class="modal-body">
+                    <input hidden id="TopicID" />
+                    <p>Do you want to restore this topic?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <a href="javascript:;" class="btn btn-danger" onclick="topic.restore()">Yes</a>
+
+                </div>
             </div>
         </div>
+    </div>
+</div>
 
         @section Scripts{
             <script src="~/js/topicisdelete.js" asp-append-version="true"></script>
