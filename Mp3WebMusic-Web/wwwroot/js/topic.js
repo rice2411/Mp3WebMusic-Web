@@ -17,7 +17,7 @@ topic.drawTable = function () {
                             <a href="javascripts:;" class="btn btn-success"
                                        onclick="topic.get(${v.topicID})">Edit</a> 
                             <a href="javascripts:;" class="btn btn-danger"
-                                        onclick="topic.delete(${v.topicID})">Remove</a>
+                                        onclick="topic.gettodelete(${v.topicID})">Remove</a>
                            
                             
                         </td>
@@ -28,52 +28,86 @@ topic.drawTable = function () {
     });
 };
 
-topic.openAddEditTopic = function () {
+topic.openAddTopic = function () {
     topic.reset();
-    $('#addEditTopic').modal('show');
+    $('#addTopic').modal('show');
 
 };
+topic.openEditTopic = function () {
+    topic.reset();
+
+    $('#editTopic').modal('show');
+
+};
+//topic.delete = function (id) {
+//    bootbox.confirm({
+//        title: "Delete topic?",
+//        message: "Do you want to delete this topic.",
+//        buttons: {
+//            cancel: {
+//                label: '<i class="fa fa-times"></i> No'
+//            },
+//            confirm: {
+//                label: '<i class="fa fa-check"></i> Yes'
+//            }
+//        },
+//        //sdsdsd
+//        callback: function (result) {
+//            if (result) {
+//                $.ajax({
+//                    url: `/Topic/Delete`,
+//                    method: "GET",
+//                    dataType: "json",
+//                    success: function (data) {
+//                        bootbox.alert(data.result.message);
+//                        home.drawTable();
+//                    }
+//                });
+//            }
+//        }
+//    });
+//}
 topic.delete = function () {
-    bootbox.confirm({
-        title: "Delete topic?",
-        message: "Do you want to delete this topic.",
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> No'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Yes'
-            }
-        },
-        //sdsdsd
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: `/Topic/Delete`,
-                    method: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        bootbox.alert(data.result.message);
-                        home.drawTable();
-                    }
-                });
-            }
+    var saveObj = {};
+    
+    saveObj.TopicID = parseInt($('#TopicID').val());
+    $.ajax({
+        url: `/Topic/Delete/`,
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveObj),
+        success: function (data) {
+            $('#deleteTopic').modal('hide');
+            bootbox.alert(data.result.message);
+            topic.drawTable();
         }
+   
     });
 }
 topic.get = function (id) {
     $.ajax({
-        url: `/Topic/Get/${id}}`,
+        url: `/Topic/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#TopicName').val(data.result.topicName);
-            $('#TopicID').val(data.result.topicID);
-            $('#addEditTopic').modal('show');
+            $('#TopicNameEdit').val(data.result.topicName);
+            $('#TopicIDEdit').val(data.result.topicID);
+            $('#editTopic').modal('show');
         }
     });
 }
-
+topic.gettodelete = function (id) {
+    $.ajax({
+        url: `/Topic/Get/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {       
+            $('#TopicID').val(data.result.topicID);
+            $('#deleteTopic').modal('show');
+        }
+    });
+}
 topic.reset = function () {
     $('#TopicName').val("");
     $('#TopicID').val(0);
@@ -82,6 +116,7 @@ topic.reset = function () {
 topic.add = function () {
 
     let topicObj = {};
+    topicObj.topicID = $('#TopicID').val();
     topicObj.topicName = $('#TopicName').val();
     $.ajax({
         url: '/Topic/Add',
@@ -90,15 +125,16 @@ topic.add = function () {
         contentType: "application/JSON",
         data: JSON.stringify(topicObj),
         success: function (data) {
-            topic.drawTable();;
+            topic.drawTable();
+            $('#addTopic').modal('hide');
             bootbox.alert(data.result.message);
         }
     })
 };
 topic.edit = function () {
     var saveObj = {};
-    saveObj.TopicName = $('#TopicName').val();
-    saveObj.TopicID = parseInt($('#TopicID').val());
+    saveObj.TopicName = $('#TopicNameEdit').val();
+    saveObj.TopicID = parseInt($('#TopicIDEdit').val());
     $.ajax({
         url: `/Topic/Edit/`,
         method: "POST",
@@ -106,8 +142,8 @@ topic.edit = function () {
         contentType: "application/json",
         data: JSON.stringify(saveObj),
         success: function (data) {
-            $('#addEditTopic').modal('hide');
-            bootbox.alert(data.result.message); $('#addEditTopic').modal('hide');
+            $('#editTopic').modal('hide');
+            bootbox.alert(data.result.message);
             topic.drawTable();
         }
     });
