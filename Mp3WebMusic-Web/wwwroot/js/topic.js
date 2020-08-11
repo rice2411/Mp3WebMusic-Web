@@ -10,10 +10,10 @@ topic.drawTable = function () {
             $.each(data.topics, function (i,v) {
                 $('#tbTopic').append(
                     `<tr>
-                        <td>${v.topicID}</td>
-                        <td>${v.topicName}</td>
+                        <td  class="py-1">${v.topicID}</td>
+                        <td  class="py-1">${v.topicName}</td>
                      
-                        <td>
+                        <td  class="py-1">
                             <a href="javascripts:;" class="btn btn-success"
                                        onclick="topic.get(${v.topicID})">Edit</a> 
                             <a href="javascripts:;" class="btn btn-danger"

@@ -15,14 +15,14 @@ song.drawTable = function () {
                             <div class="player" onclick='GetContent(${v.songID})' >
      
                                 <div class="album-art">
-                                    <div  class="cover" ">
+                                    <div  class="cover " >
 
-                                        <img src="${v.poster}" style="height: 100%; width: 100%; border-radius: 3%;">
+                                        <img src="${v.poster}" class='image' style="height: 100%; width: 100%; border-radius: 3%;">
                                     </div>
                                 </div>
                                 <div class="description">
-                                    <div class="title "><b>${v.songName} </b></div>
-                            
+                                    <div class="title" ><b>${v.songName} </b></div>
+                                    
                                     <div class="sub-title">${v.singerNickName}</div>
                                 </div>
                                 <div class="middle2">
@@ -128,6 +128,7 @@ song.edit = function () {
 }
 song.init = function () {
     song.drawTable();
+ 
 };
 
 $(document).ready(function () {

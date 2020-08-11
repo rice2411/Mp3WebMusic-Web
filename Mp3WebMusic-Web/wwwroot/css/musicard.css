@@ -2,9 +2,7 @@
 @import url(https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css);
 
 
-.sub-title {
-    line-height: 0;
-}
+
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
 @import url(https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css);
 
@@ -14,7 +12,7 @@
 
 body .player, html .player, a .player {
     width: 470px;
-    height: 77px;
+    height: 80px;
     background: #0f011a;
     border-bottom: 4px #ccc solid;
     position: relative;
@@ -48,17 +46,20 @@ body .player, html .player, a .player {
         height: 50px;
         top: 20%;
         left: 20%;
-        overflow: hidden;
+      
     }
 
         body .player .description .title, html .player .description .title {
             color: white;
             font-size: 24px;
             font-weight: 100;
+           
         }
 
         body .player .description .sub-title, html .player .description .sub-title {
-            font-size: 20px;
+            margin-top: 5px;
+            line-height: 0;
+            font-size: 17px;
             font-weight: 100;
             color: #999;
         }
@@ -119,17 +120,3 @@ body .player, html .player, a .player {
         cursor: pointer;
     }
 
-.middle2 {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 7.5%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: left;
-}
-.text2 {
-   color: white;
-    font-size: 30px;
-}
