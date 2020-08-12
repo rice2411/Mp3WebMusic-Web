@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Mp3WebMusic_Web.Models.Singer
 {
-    public class GetSinger
+    public class Singer
     {
         public int SingerID { get; set; }
         public string SingerNickName { get; set; }
@@ -13,6 +13,7 @@ namespace Mp3WebMusic_Web.Models.Singer
         public string Introduce { get; set; }
         public int View { get; set; }
         public string Avatar { get; set; }
-     
+        public string Message { get; set; }
+
     }
 }

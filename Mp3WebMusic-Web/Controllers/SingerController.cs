@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Mp3WebMusic_Web.Controllers
 {
-    public class SingerController: Controller
+    public class SingerController : Controller
     {
         public ViewResult Singer()
         {
@@ -19,59 +19,70 @@ namespace Mp3WebMusic_Web.Controllers
 
             return View("~/Views/Dashboard/Singer/SingerIsDelete.cshtml");
         }
-        [Route("Singer/GetsTopicIsNotDelete")]
-        public JsonResult GetsTopicIsNotDelete()
+        [Route("Singer/GetsSingerIsNotDelete")]
+        public JsonResult GetsSingerIsNotDelete()
         {
-            var singers = new List<GetSinger>();
-            singers = ApiHelper<List<GetSinger>>.HttpGetAsync($"{Helper.ApiUrl}/Api/Singer/GetsSingerIsNotDelete");
+            var singers = new List<Singer>();
+            singers = ApiHelper<List<Singer>>.HttpGetAsync($"{Helper.ApiUrl}Api/Singer/GetsSingerIsNotDelete");
             var json = Json(new { singers });
             return json;
         }
-    //    [Route("/Topic/GetsTopicIsDelete")]
-    //    public JsonResult GetsTopicIsDelete()
-    //    {
-    //        var topics = new List<GetTopic>();
-    //        topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}/Api/Topic/GetsTopicIsDelete");
-    //        var json = Json(new { topics });
-    //        return json;
-    //    }
-    //    [Route("/Topic/Add")]
-    //    public JsonResult Add([FromBody] AddTopicRequest model)
-    //    {
-    //        var result = new SaveTopic();
-    //        result = ApiHelper<SaveTopic>.HttpPostAsync(
-    //                                                $"{Helper.ApiUrl}/Api/Topic/Add",
-    //                                                model
-    //                                            );
-    //        return Json(new { result });
-    //    }
-    //    [Route("/Topic/Edit")]
-    //    public JsonResult Edit([FromBody] EditTopicRequest model)
-    //    {
-    //        var result = new SaveTopic();
-    //        result = ApiHelper<SaveTopic>.HttpPostAsync(
-    //                                                $"{Helper.ApiUrl}/Api/Topic/Edit",
-    //                                                model
-    //                                            );
-    //        return Json(new { result });
-    //    }
-    //    public JsonResult Get(int id)
-    //    {
-    //        var result = new GetTopic();
-    //        result = ApiHelper<GetTopic>.HttpGetAsync(
-    //                                                $"{Helper.ApiUrl}/Api/Topic/Get{id}"
-    //                                            );
-    //        return Json(new { result });
-    //    }
-    //    [Route("/Department/Delete/{id}")]
-    //    public JsonResult Delete(int id)
-    //    {
-    //        var result = new SaveTopic();
-    //        result = ApiHelper<SaveTopic>.HttpGetAsync(
-    //                                                $"{Helper.ApiUrl}",
-    //                                                "DELETE"
-    //                                            );
-    //        return Json(new { result });
-    //    }
+        [Route("/Singer/GetsSingerIsDelete")]
+        public JsonResult GetsSingerIsDelete()
+        {
+            var singers = new List<Singer>();
+            singers = ApiHelper<List<Singer>>.HttpGetAsync($"{Helper.ApiUrl}Api/Singer/GetsSingerIsDelete");
+            var json = Json(new { singers });
+            return json;
+        }
+        [Route("/Singer/Add")]
+        public JsonResult Add([FromBody] Singer model)
+        {
+            var result = new Singer();
+            result = ApiHelper<Singer>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Singer/Add",
+                                                    model
+                                                );
+            return Json(new { result });
+        }
+        [Route("/Singer/Edit")]
+        public JsonResult Edit([FromBody] Singer model)
+        {
+            var result = new Singer();
+            result = ApiHelper<Singer>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Singer/Edit",
+                                                    model
+                                                );
+            return Json(new { result });
+        }
+        [Route("/Singer/GetsSingerByID/{id}")]
+        public JsonResult Get(int id)
+        {
+            var result = new Singer();
+            result = ApiHelper<Singer>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Singer/GetsSingerByID/{id}"
+                                                );
+            return Json(new { result });
+        }
+        [Route("/Singer/Delete/")]
+        public JsonResult Delete([FromBody] Singer model)
+        {
+            var result = new Singer();
+            result = ApiHelper<Singer>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Singer/Delete",
+                                                    model
+                                                );
+            return Json(new { result });
+        }
+        [Route("/Singer/Restore/")]
+        public JsonResult Restore([FromBody] Singer model)
+        {
+            var result = new Singer();
+            result = ApiHelper<Singer>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Singer/Restore",
+                                                    model
+                                                );
+            return Json(new { result });
+        }
     }
 }
