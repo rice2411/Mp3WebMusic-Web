@@ -20,6 +20,14 @@ namespace Mp3WebMusic_Web.Controllers
             };
             return View("~/Views/Dashboard/Song/Detail.cshtml", song);
         }
+        public ViewResult Liten(int id)
+        {
+            var song = new Song()
+            {
+                SongID = id
+            };
+            return View("~/Views/Home/Listen.cshtml", song);
+        }
         public ViewResult Song()
         {
            
