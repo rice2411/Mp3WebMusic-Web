@@ -1,0 +1,48 @@
+﻿
+<div>
+    <h1>Singer Management</h1>
+    <div class="row">
+       
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>SingerID</th>
+                <th>SingerName</th>
+                <th>SingerNickName</th>
+                <th>View</th>
+                <th>Introduce</th>
+                <th>Avatar</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tbSinger">
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Modal Delete-->
+<div class="modal fade" id="restoreSinger" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Singer</h4>
+            </div>
+            <div class="modal-body">
+                <input hidden id="SingerID" />
+                <p>Do you want to restore this singer?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <a href="javascript:;" class="btn btn-danger" onclick="singer.restore()">Yes</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/singerisdelete.js" asp-append-version="true"></script>
+}
