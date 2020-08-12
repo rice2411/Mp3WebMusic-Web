@@ -29,17 +29,7 @@ song.drawTable = function () {
     });
 };
 
-song.openAddsong = function () {
-    song.reset();
-    $('#addsong').modal('show');
 
-};
-song.openEditsong = function () {
-    song.reset();
-
-    $('#editsong').modal('show');
-
-};
 song.delete = function (id) {
     bootbox.confirm({
         title: "Delete song?",
@@ -54,7 +44,7 @@ song.delete = function (id) {
                 className: 'btn btn-primary btn-fw'
             }
         },
-        //sdsdsd
+       
         callback: function (result) {
             if (result) {
                 $.ajax({
@@ -109,22 +99,8 @@ song.get = function () {
         }
     });
 }
-song.gettodelete = function (id) {
-    $.ajax({
-        url: `/song/Get/${id}`,
-        method: "GET",
-        dataType: "json",
-        success: function (data) {       
-            $('#songID').val(data.result.songID);
-            $('#deletesong').modal('show');
-        }
-    });
-}
-song.reset = function () {
-    $('#songName').val("");
-    $('#songID').val(0);
 
-}
+
 song.add = function () {
 
     let songObj = {};
