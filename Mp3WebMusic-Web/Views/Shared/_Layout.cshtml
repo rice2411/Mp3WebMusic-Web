@@ -21,7 +21,7 @@
         .navbar-custom .nav-item:hover .nav-link {
             color: yellow;
         }
-        
+      
     </style>
 
     <nav class="navbar navbar-expand-md navbar-light flex-row" style="background-color:#0f011a">
@@ -32,11 +32,16 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <input class="search__input" type="search" placeholder="Search" aria-label="Search">
+                <div class="autocomplete" style="width: 200%">
+                    <input class="search__input" type="search" placeholder="Search" aria-label="Search" autocomplete="off" id='myInput' list="mylist">
+                </div>
+              @*  <datalist id='mylist'>
+            
+                </datalist>*@
                 &nbsp;
                 <ul class="navbar-nav mr-auto ">
                     <li class="nav-item active float-right">
-                        <a class="nav-link text-light icon-btn" asp-controller="Topic" asp-action="Topic" style="margin-right:-5px"><i class="far fa-upload"></i></a>
+                        <a class="nav-link text-light icon-btn" asp-controller="Song" asp-action="Song" style="margin-right:-5px"><i class="far fa-upload"></i></a>
                     </li>
 
                 </ul>
@@ -120,6 +125,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/FApro.js"></script>
+    <script src="~/js/list.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

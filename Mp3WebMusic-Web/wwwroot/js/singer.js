@@ -8,21 +8,21 @@ singer.drawTable = function () {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#addEditSinger tbody').empty();
-            $.each(data.employees, function (i, v) {
-                $('#addEditSinger tbody').append(
+            $('#tbSinger').empty();
+            $.each(data.singers, function (i, v) {
+                $('#tbSinger').append(
                     `
                     <tr>
-                        <td>${v.SingerID}</td>
-                        <td>${v.SingerName}</td>
-                        <td>${v.SingerNickName}</td> 
-                        <td>${v.Introduce}</td>
-                        <td>${v.View}</td>
-                        <td><img src='${v.Avatar}' width='80' height='90'/></td>
+                        <td>${v.singerID}</td>
+                        <td>${v.singerName}</td>
+                        <td>${v.singerNickName}</td> 
+                        <td>${v.view}</td>
+                        <td>${v.introduce}</td>
+                        <td><img src='${v.avatar}' width='80' height='90'/></td>
                       
                         <td>
-                            <a href="javascript:;" onclick="singer.get(${v.SingerID})" class="item"><i class="zmdi zmdi-edit"></i></a> 
-                            <a href="javascript:;" onclick="singer.delete(${v.SingerID})" class="item"><i class="zmdi zmdi-delete"></i></a>
+                            <a href="javascript:;" onclick="singer.get(${v.singerID})" class="btn btn-success">Edit</a> 
+                            <a href="javascript:;" onclick="singer.gettodelete(${v.singerID})" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                     `
@@ -33,38 +33,12 @@ singer.drawTable = function () {
 
 };
 
-singer.openAddEditEmployee = function () {
+singer.openAddSinger = function () {
     singer.reset();
-    $('#addEditSinger').appendTo("body").modal('show');
+    $('#addSinger').appendTo("body").modal('show');
 };
 
-singer.delete = function (id) {
-    bootbox.confirm({
-        title: "Delete Singer?",
-        message: "Do you want to delete this singer.",
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> No'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Yes'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: `/Singer/Delete/${id}`,
-                    method: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        bootbox.alert(data.result.message);
-                        singer.drawTable();
-                    }
-                });
-            }
-        }
-    });
-}
+
 
 singer.uploadAvatar = function (input) {
     if (input.files && input.files[0]) {
@@ -75,21 +49,39 @@ singer.uploadAvatar = function (input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
-singre.get = function (id) {
+singer.editAvatar = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#editAvatar').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+singer.gettodelete = function (id) {
     $.ajax({
-        url: `/Singer/Get/${id}`,
+        url: `/Singer/GetsSingerByID/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#SingerName').val(data.singer.SingerName);
-            $('#SingerID').val(data.singer.SingerID);
-            $('#SingerNickName').val(data.singer.SingerNickName);
-            $('#Introduce').val(data.singer.Introduce);
-            $('#Avatar').attr("src", data.singer.Avatar);
+            $('#SingerID').val(data.result.singerID);
+            $('#deleteSinger').modal('show');
+        }
+    });
+}
 
-            $('#addEditSinger').find('.modal-title').text('Edit Singer');
-            $('#addEditSinger').appendTo("body").modal('show');
+singer.get = function (id) {
+    $.ajax({
+        url: `/Singer/GetsSingerByID/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#editSingerName').val(data.result.singerName);
+            $('#editSingerID').val(data.result.singerID);
+            $('#editSingerNickName').val(data.result.singerNickName);
+            $('#editIntroduce').val(data.result.introduce);
+            $('#editAvatar').attr("src", data.result.avatar);
+            $('#editSinger').modal('show');
         }
     });
 }
@@ -103,54 +95,74 @@ singer.reset = function () {
     $('#addEditEmployee').find('.modal-title').text('Add New Employee');
 }
 
-employee.save = function () {
+singer.add = function () {
     var saveObj = {};
-    saveObj.EmployeeName = $('#EmployeeName').val();
-    saveObj.EmployeeId = parseInt($('#EmployeeId').val());
-    saveObj.DoB = $('#DoB').val();
-    saveObj.Gender = parseInt($('#Gender').val());
-    saveObj.AvatarPath = $('#Avatar').attr('src');
-    saveObj.DepartmentId = parseInt($('#Department').val());
+    saveObj.SingerName = $('#SingerName').val();
+    saveObj.SingerID = parseInt($('#SingerID').val());
+    saveObj.SingerNickName = $('#SingerNickName').val();
+    saveObj.Introduce = $('#Introduce').val();
+    saveObj.Avatar = $('#Avatar').attr('src');
     $.ajax({
-        url: `/Employee/Save/`,
+        url: `/Singer/Add/`,
         method: "POST",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(saveObj),
         success: function (data) {
-            $('#addEditEmployee').modal('hide');
+            $('#addSinger').modal('hide');
             bootbox.alert(data.result.message);
-            employee.drawTable();
+            singer.drawTable();
         }
     });
 }
 
-employee.initGender = function () {
-    $("#Gender").append(`<option value=1>Male</option>`)
-        .append(`<option value=0>Female</option>`);
-}
-
-employee.initDepartment = function () {
+singer.edit = function () {
+    var saveObj = {};
+    saveObj.SingerName = $('#editSingerName').val();
+    saveObj.SingerID = parseInt($('#editSingerID').val());
+    saveObj.SingerNickName = $('#editSingerNickName').val();
+    saveObj.Introduce = $('#editIntroduce').val();
+    saveObj.Avatar = $('#editAvatar').attr('src');
     $.ajax({
-        url: `/Department/Gets`,
-        method: "GET",
+        url: `/Singer/Edit/`,
+        method: "POST",
         dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveObj),
         success: function (data) {
-            $('#Department').empty();
-            $.each(data.departments, function (i, v) {
-                $("#Department").append(`<option value=${v.departmentId}>${v.departmentName}</option>`)
-            });
+            $('#editSinger').modal('hide');
+            bootbox.alert(data.result.message);
+            singer.drawTable();
         }
     });
 }
+singer.delete = function () {
+    var saveObj = {};
+    saveObj.SingerID = parseInt($('#SingerID').val());
 
-employee.init = function () {
-    employee.drawTable();
-    employee.initGender();
-    employee.initDepartment();
+    $.ajax({
+        url: `/Singer/Delete/`,
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveObj),
+        success: function (data) {
+            $('#deleteSinger').modal('hide');
+            bootbox.alert(data.result.message);
+            singer.drawTable();
+        }
+
+    });
+}
+
+
+
+singer.init = function () {
+    singer.drawTable();
+
 };
 
 $(document).ready(function () {
-    departId = $('#DepartmentId').val();
-    employee.init();
+
+    singer.init();
 });

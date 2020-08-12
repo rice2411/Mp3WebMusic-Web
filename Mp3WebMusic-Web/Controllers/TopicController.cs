@@ -26,7 +26,7 @@ namespace Mp3WebMusic_Web.Controllers
         public JsonResult GetsTopicIsNotDelete() 
         { 
             var topics = new List<GetTopic>(); 
-            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}/Api/Topic/GetsTopicIsNotDelete"); 
+            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsNotDelete"); 
             var json = Json(new { topics });
             return json; 
         }
@@ -34,7 +34,7 @@ namespace Mp3WebMusic_Web.Controllers
         public JsonResult GetsTopicIsDelete()
         {
             var topics = new List<GetTopic>();
-            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}/Api/Topic/GetsTopicIsDelete");
+            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsDelete");
             var json = Json(new { topics });
             return json;
         }
@@ -43,7 +43,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new SaveTopic();
             result = ApiHelper<SaveTopic>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}/Api/Topic/Add",
+                                                    $"{Helper.ApiUrl}Api/Topic/Add",
                                                     model
                                                 );
             return Json(new { result });
@@ -53,7 +53,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new SaveTopic();
             result = ApiHelper<SaveTopic>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}/Api/Topic/Edit",
+                                                    $"{Helper.ApiUrl}Api/Topic/Edit",
                                                     model
                                                 );
             return Json(new { result });
@@ -63,7 +63,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new GetTopic();
             result = ApiHelper<GetTopic>.HttpGetAsync(
-                                                    $"{Helper.ApiUrl}/Api/Topic/Get/{id}"
+                                                    $"{Helper.ApiUrl}Api/Topic/Get/{id}"
                                                 );
             return Json(new {result});
         }
@@ -72,7 +72,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new SaveTopic();
             result = ApiHelper<SaveTopic>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}/Api/Topic/Delete",
+                                                    $"{Helper.ApiUrl}Api/Topic/Delete",
                                                     model
                                                 );
             return Json(new { result });
@@ -82,7 +82,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new SaveTopic();
             result = ApiHelper<SaveTopic>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}/Api/Topic/Restore",
+                                                    $"{Helper.ApiUrl}Api/Topic/Restore",
                                                     model
                                                 );
             return Json(new { result });

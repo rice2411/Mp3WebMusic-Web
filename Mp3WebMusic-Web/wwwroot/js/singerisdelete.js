@@ -56,7 +56,7 @@ singer.get = function (id) {
 singer.restore = function () {
     var saveObj = {};
     saveObj.SingerID = parseInt($('#SingerID').val());
-   
+
     $.ajax({
         url: `/Singer/Restore/`,
         method: "POST",
@@ -76,10 +76,10 @@ singer.restore = function () {
 
 singer.init = function () {
     singer.drawTable();
-   
+
 };
 
 $(document).ready(function () {
- 
+
     singer.init();
 });
