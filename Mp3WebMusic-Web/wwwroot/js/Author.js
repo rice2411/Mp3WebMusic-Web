@@ -2,105 +2,114 @@ var author = {} || author;
 
 author.drawTable = function () {
     $.ajax({
-        url: "Author/author",
+        url: "/Author/GetsAuthorIsDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#tbAuthor tbody').empty();
+            $('#tbauthor').empty();
             $.each(data.authors, function (i,v) {
-               
-                   
-                //$('#tbDepart tbody').append(
-                //    `<tr>
-                //        <td>${v.authorID}</td>
-                //        <td>${v.authorName}</td>
-                     
-                //        <td>
-                //            <a href="javascripts:;" class="btn btn-success"
-                //                       onclick="author.get(${v.authorID})">Edit</a> 
-                //            <a href="javascripts:;" class="btn btn-danger"
-                //                        onclick="author.delete(${v.authorID})">Remove</a>
-                           
-                            
-                //        </td>
-                //    </tr>`
-                //);
+                $('#tbauthor').append(
+                    `<tr>
+                        <td>${v.authorID}</td>
+                        <td>${v.authorName}</td>
+                        <td><img src="${v.Avatar}" style="width: 50px; height: 50px;"></td>
+                        
+                        <td>
+                            <a class="btn btn-success"
+                                     href="/Author/AuthorDetail/${v.authorID}">Detail</a> 
+                            <a href="javascripts:;" class="btn btn-danger text-light"
+                                    onclick="author.delete(${v.authorID})">Delete</a> 
+                        </td>
+                    </tr>`
+                );
             });
         }
     });
 };
-author.openAddEditauthor = function () {
-    author.reset();
-    $('#addEditauthor').modal('show');
 
-};
-author.delete = function () {
+
+author.delete = function (id) {
     bootbox.confirm({
         title: "Delete author?",
         message: "Do you want to delete this author.",
         buttons: {
             cancel: {
-                label: '<i class="fa fa-times"></i> No'
+                label: 'No',
+                className: 'btn btn-secondary btn-fw'
             },
             confirm: {
-                label: '<i class="fa fa-check"></i> Yes'
+                label: ' Yes',
+                className: 'btn btn-primary btn-fw'
             }
         },
-        
+       
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: `/author/Delete`,
+                    url: `/Author/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
-                        home.drawTable();
+                        author.drawTable();
                     }
                 });
             }
         }
     });
 }
-author.get = function (id) {
+author.uploadImage = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#authorAvatar').attr('src', e.target.result);
+          
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+};
+
+
+author.get = function () {
+    var id = parseInt($('#authorID').val());
     $.ajax({
-        url: `/Author/Get/${id}}`,
+        url: `/Author/GetAuthorById/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#authorName').val(data.result.authorName);
-            $('#authorID').val(data.result.authorID);
-            $('#addEditAuthor').modal('show');
+            $('#authorAvatar').attr('src',data.result.avatar);
+            $('#authorIntroduce').val(data.result.authorIntroduce); 
         }
     });
 }
 
-author.reset = function () {
-    $('#authorName').val("");
-    $('#AuthorID').val(0);
 
-}
 author.add = function () {
-    var saveObj = {};
-    saveObj.AuthorName = $('#AuthorName').val();
-    saveObj.AuthorID = parseInt($('#AuthorID').val());
+
+    let authorObj = {};
+    authorObj.authorID = $('#authorID').val();
+    authorObj.authorName = $('#authorName').val();
     $.ajax({
-        url: `/Author/Add/`,
+        url: '/Author/Add',
         method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
+        dataType: "JSON",
+        contentType: "application/JSON",
+        data: JSON.stringify(authorObj),
         success: function (data) {
-            $('#addEditAuthor').modal('hide');
-            bootbox.alert(data.result.message);
             author.drawTable();
+            $('#addauthor').modal('hide');
+            bootbox.alert(data.result.message);
         }
-    });
-}
+    })
+};
 author.edit = function () {
     var saveObj = {};
-    saveObj.AuthorName = $('#AuthorName').val();
-    saveObj.AuthorID = parseInt($('#AuthorID').val());
+    saveObj.authorName = $('#authorName').val();
+    saveObj.authorID = parseInt($('#authorID').val());     
+    saveObj.avatar = $('#authorAvatar').attr('src');
+    saveObj.authorIntroduce = $('#authorIntroduce').val();
+    debugger;
     $.ajax({
         url: `/Author/Edit/`,
         method: "POST",
@@ -108,14 +117,22 @@ author.edit = function () {
         contentType: "application/json",
         data: JSON.stringify(saveObj),
         success: function (data) {
-            $('#addEditAuthor').modal('hide');
-            bootbox.alert(data.result.message);
-            author.drawTable();
+            bootbox.alert({
+                message: data.result.message,
+                callback: function () {
+                    window.location.href='/Author/Author';
+                },
+                closeButton: false
+            })
+
         }
+    
     });
 }
+
 author.init = function () {
     author.drawTable();
+ 
 };
 
 $(document).ready(function () {
