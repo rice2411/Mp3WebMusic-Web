@@ -1,0 +1,41 @@
+﻿
+
+
+
+    <h1>Author Management</h1>
+    <div class="row">
+        <div class=" col-lg-12 mt-3">
+            <a href="javascript:void(0);" class="btn btn-info"
+               onclick="author.openAddTopic()">Create</a>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Tên tác giả</th>
+                <th>Xóa</th>
+                <th>Avatar</th>
+                <th>Tiểu sử</th>
+            </tr>
+            
+        </thead>
+        <tbody id="tbauthor">
+        </tbody>
+    </table>
+  
+
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="~/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="~/js/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="~/js/startmin.js"></script>
+@section Scripts{
+    <script src="~/js/author.js" asp-append-version="true"></script>
+
+}
