@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mp3WebMusic_Web.Models.Singer;
 using Mp3WebMusic_Web.Ultilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 namespace Mp3WebMusic_Web.Controllers
 {
     public class SingerController : Controller
