@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mp3WebMusic_Web.Models;
-using Mp3WebMusic_Web.Models.Topic;
 using Mp3WebMusic_Web.Ultilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mp3WebMusic_Web.Controllers
 {
     public class TopicController: Controller
     {
-       
+        public ViewResult Search()
+        {
+
+            return View("~/Views/Home/TopicList.cshtml");
+        }
         public ViewResult Topic()
         {
            
@@ -25,34 +25,38 @@ namespace Mp3WebMusic_Web.Controllers
         [Route("/Topic/GetsTopicIsNotDelete")]
         public JsonResult GetsTopicIsNotDelete() 
         { 
-            var topics = new List<GetTopic>(); 
-            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsNotDelete"); 
+            var topics = new List<Topic>(); 
+            topics = ApiHelper<List<Topic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsNotDelete"); 
             var json = Json(new { topics });
             return json; 
         }
         [Route("/Topic/GetsTopicIsDelete")]
         public JsonResult GetsTopicIsDelete()
         {
-            var topics = new List<GetTopic>();
-            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsDelete");
+            var topics = new List<Topic>();
+            topics = ApiHelper<List<Topic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsDelete");
             var json = Json(new { topics });
             return json;
         }
         [Route("/Topic/Add")]
-        public JsonResult Add([FromBody] AddTopicRequest model)
+        public JsonResult Add([FromBody] Topic model)
         {
-            var result = new SaveTopic();
-            result = ApiHelper<SaveTopic>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Topic/Add",
-                                                    model
-                                                );
-            return Json(new { result });
+           if(ModelState.IsValid)
+            {
+                var result = new Topic();
+                result = ApiHelper<Topic>.HttpPostAsync(
+                                                        $"{Helper.ApiUrl}Api/Topic/Add",
+                                                        model
+                                                    );
+                return Json(new { result });
+            }
+            return Json(new {  });
         }
         [Route("/Topic/Edit")]
-        public JsonResult Edit([FromBody] EditTopicRequest model)
+        public JsonResult Edit([FromBody] Topic model)
         {
-            var result = new SaveTopic();
-            result = ApiHelper<SaveTopic>.HttpPostAsync(
+            var result = new Topic();
+            result = ApiHelper<Topic>.HttpPostAsync(
                                                     $"{Helper.ApiUrl}Api/Topic/Edit",
                                                     model
                                                 );
@@ -61,29 +65,29 @@ namespace Mp3WebMusic_Web.Controllers
         [Route("/Topic/Get/{id}")]
         public JsonResult Get(int id)
         {
-            var result = new GetTopic();
-            result = ApiHelper<GetTopic>.HttpGetAsync(
+            var result = new Topic();
+            result = ApiHelper<Topic>.HttpGetAsync(
                                                     $"{Helper.ApiUrl}Api/Topic/Get/{id}"
                                                 );
             return Json(new {result});
         }
-        [Route("/Topic/Delete/")]
-        public JsonResult Delete([FromBody] DeleteTopicRequest model)
+        [Route("/Topic/Delete/{id}")]
+        public JsonResult Delete(int id)
         {
-            var result = new SaveTopic();
-            result = ApiHelper<SaveTopic>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Topic/Delete",
-                                                    model
+            var result = new Topic();
+            result = ApiHelper<Topic>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Topic/Delete/{id}",
+                                                    "post"
                                                 );
             return Json(new { result });
         }
-        [Route("/Topic/Restore/")]
-        public JsonResult Restore([FromBody] DeleteTopicRequest model)
+        [Route("/Topic/Restore/{id}")]
+        public JsonResult Restore(int id)
         {
-            var result = new SaveTopic();
-            result = ApiHelper<SaveTopic>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Topic/Restore",
-                                                    model
+            var result = new Topic();
+            result = ApiHelper<Topic>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Topic/Restore/{id}",
+                                                    "post"
                                                 );
             return Json(new { result });
         }

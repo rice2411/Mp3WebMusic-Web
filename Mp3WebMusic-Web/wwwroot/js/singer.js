@@ -4,12 +4,13 @@ var singer = {} || singer;
 singer.drawTable = function () {
 
     $.ajax({
-        url: `/Singer/GetsSingerIsNotDelete`,
+        url: `/Singer/GetsSingerIsDelete`,
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#tbSinger').empty();
             $.each(data.singers, function (i, v) {
+                var check = v.isDelete == true ? "checked" : "";
                 $('#tbSinger').append(
                     `
                     <tr>
@@ -19,19 +20,56 @@ singer.drawTable = function () {
                         <td>${v.view}</td>
                         <td>${v.introduce}</td>
                         <td><img src='${v.avatar}' width='80' height='90'/></td>
-                      
+                        <td><input type="checkbox" id='songstatus${v.singerID}' ${check}  onclick="ChangeStatus(${v.singerID});"></td>
                         <td>
                             <a href="javascript:;" onclick="singer.get(${v.singerID})" class="btn btn-success">Edit</a> 
-                            <a href="javascript:;" onclick="singer.gettodelete(${v.singerID})" class="btn btn-danger">Delete</a>
+                     
                         </td>
                     </tr>
                     `
                 );
             });
+            $("#mytable").DataTable({
+                destroy: true,
+             
+                "columnDefs": [
+                    {
+                        "targets": 6,
+                        "orderDataType": "dom-checkbox"
+                    }]
+            });
         }
     });
 
 };
+function ChangeStatus(id) {
+    if (document.getElementById(`songstatus${id}`).checked) {
+        $.ajax({
+            url: `/Singer/Delete/${id}`,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                bootbox.alert(data.result.message);
+                singer.drawTable();
+            }
+        });
+    } else {
+        $.ajax({
+            url: `/Singer/Restore/${id}`,
+            method: "POST",
+            dataType: "json",
+
+
+            success: function (data) {
+                $('#restoreSinger').modal('hide');
+                bootbox.alert(data.result.message);
+                singer.drawTable();
+            }
+
+        });
+
+    }
+}
 
 singer.openAddSinger = function () {
     singer.reset();
@@ -159,10 +197,11 @@ singer.delete = function () {
 
 singer.init = function () {
     singer.drawTable();
-
+  
 };
 
 $(document).ready(function () {
 
     singer.init();
+  
 });

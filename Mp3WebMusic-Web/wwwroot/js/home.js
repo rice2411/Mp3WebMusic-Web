@@ -41,6 +41,10 @@ song.drawTable = function () {
  
 };
 
+function GetContent(prm) {
+    window.location.href = '/Song/Detail/' + prm;
+}
+
 song.openAddEditsong = function () {
     song.reset();
     $('#addEditsong').modal('show');

@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mp3WebMusic_Web.Models.Singer;
 using Mp3WebMusic_Web.Ultilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 namespace Mp3WebMusic_Web.Controllers
 {
     public class SingerController : Controller
     {
+        public ViewResult Search()
+        {
+
+            return View("~/Views/Home/SingerList.cshtml");
+        }
         public ViewResult Singer()
         {
 
@@ -64,23 +66,23 @@ namespace Mp3WebMusic_Web.Controllers
                                                 );
             return Json(new { result });
         }
-        [Route("/Singer/Delete/")]
-        public JsonResult Delete([FromBody] Singer model)
+        [Route("/Singer/Delete/{id}")]
+        public JsonResult Delete(int id)
         {
             var result = new Singer();
-            result = ApiHelper<Singer>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Singer/Delete",
-                                                    model
+            result = ApiHelper<Singer>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Singer/Delete/{id}",
+                                                    "post"
                                                 );
             return Json(new { result });
         }
-        [Route("/Singer/Restore/")]
-        public JsonResult Restore([FromBody] Singer model)
+        [Route("/Singer/Restore/{id}")]
+        public JsonResult Restore(int id)
         {
             var result = new Singer();
-            result = ApiHelper<Singer>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Singer/Restore",
-                                                    model
+            result = ApiHelper<Singer>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Singer/Restore/{id}",
+                                                    "post"
                                                 );
             return Json(new { result });
         }

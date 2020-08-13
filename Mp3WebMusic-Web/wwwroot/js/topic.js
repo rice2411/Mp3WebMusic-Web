@@ -2,31 +2,86 @@ var topic = {} || topic;
 
 topic.drawTable = function () {
     $.ajax({
-        url: "/Topic/GetsTopicIsNotDelete",
+        url: "/Topic/GetsTopicIsDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#tbTopic').empty();
-            $.each(data.topics, function (i,v) {
+            $.each(data.topics, function (i, v) {
+                var check = v.isDelete == true ? "checked" : "";
                 $('#tbTopic').append(
                     `<tr>
                         <td  class="py-1">${v.topicID}</td>
                         <td  class="py-1">${v.topicName}</td>
-                     
+                             <td><input type="checkbox" id='songstatus${v.topicID}' ${check}  onclick="ChangeStatus(${v.topicID});"></td>
                         <td  class="py-1">
                             <a href="javascripts:;" class="btn btn-success"
                                        onclick="topic.get(${v.topicID})">Edit</a> 
-                            <a href="javascripts:;" class="btn btn-danger"
-                                        onclick="topic.gettodelete(${v.topicID})">Remove</a>
+                    
                            
                             
                         </td>
                     </tr>`
                 );
             });
+            $('#table').dataTable({
+                destroy: true,
+                "columnDefs": [
+                    {
+                        "targets": 2,
+                        "orderDataType": "dom-checkbox"
+                    }
+                ]
+            }); 
         }
     });
 };
+topic.uploadAvatar = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#Poster').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+topic.editAvatar = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#editPoster').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+function ChangeStatus(id) {
+    if (document.getElementById(`songstatus${id}`).checked) {
+        $.ajax({
+            url: `/Topic/Delete/${id}`,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                bootbox.alert(data.result.message);
+                topic.drawTable();
+            }
+        });
+    } else {
+        $.ajax({
+            url: `/Topic/Restore/${id}`,
+            method: "POST",
+            dataType: "json",
+
+
+            success: function (data) {
+                $('#restoreSinger').modal('hide');
+                bootbox.alert(data.result.message);
+                topic.drawTable();
+            }
+
+        });
+
+    }
+}
 
 topic.openAddTopic = function () {
     topic.reset();
@@ -93,6 +148,7 @@ topic.get = function (id) {
         success: function (data) {
             $('#TopicNameEdit').val(data.result.topicName);
             $('#TopicIDEdit').val(data.result.topicID);
+            $('#editPoster').attr("src", data.result.poster);
             $('#editTopic').modal('show');
         }
     });
@@ -111,6 +167,7 @@ topic.gettodelete = function (id) {
 topic.reset = function () {
     $('#TopicName').val("");
     $('#TopicID').val(0);
+    $('#editPoster').attr("src","");
 
 }
 topic.add = function () {
@@ -118,6 +175,7 @@ topic.add = function () {
     let topicObj = {};
     topicObj.topicID = $('#TopicID').val();
     topicObj.topicName = $('#TopicName').val();
+    topicObj.Poster = $('#Poster').attr('src');
     $.ajax({
         url: '/Topic/Add',
         method: "POST",
@@ -135,6 +193,7 @@ topic.edit = function () {
     var saveObj = {};
     saveObj.TopicName = $('#TopicNameEdit').val();
     saveObj.TopicID = parseInt($('#TopicIDEdit').val());
+    saveObj.Poster = $('#editPoster').attr('src');
     $.ajax({
         url: `/Topic/Edit/`,
         method: "POST",
@@ -154,4 +213,5 @@ topic.init = function () {
 
 $(document).ready(function () {
     topic.init();
+
 });
