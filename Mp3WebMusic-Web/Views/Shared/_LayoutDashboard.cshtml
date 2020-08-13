@@ -12,8 +12,10 @@
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="~/images/vendors/simple-line-icons/css/simple-line-icons.css">
+
 </head>
 <body>
     <div class="container-scroller">
@@ -90,21 +92,21 @@
                             <i class="icon-layers menu-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                            <span class="menu-title">Recyle Bin</span>
-                            <i class="icon-layers menu-icon"></i>
-                        </a>
-                        <div class="collapse" id="ui-basic">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" asp-controller="Song" asp-action="SongIsDelete">Song</a></li>
-                                <li class="nav-item"> <a class="nav-link"  asp-controller="Singer" asp-action="SingerIsDelete">Singer</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Author</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Topic</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Type</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    @*     <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                <span class="menu-title">Recyle Bin</span>
+                                <i class="icon-layers menu-icon"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" asp-controller="Song" asp-action="SongIsDelete">Song</a></li>
+                                    <li class="nav-item"> <a class="nav-link"  asp-controller="Singer" asp-action="SingerIsDelete">Singer</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Author</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Topic</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Type</a></li>
+                                </ul>
+                            </div>
+                        </li>*@
 
                 </ul>
             </nav>
@@ -137,17 +139,20 @@
             <!-- page-body-wrapper ends -->
         </div>
     </div>
-        <!-- container-scroller -->
-        <!-- plugins:js -->
-        <!-- endinject -->
-        <!-- Plugin js for this page -->
-        <!-- End plugin js for this page -->
-        <!-- inject:js -->
-        <!-- endinject -->
-        <!-- Custom js for this page -->
-        <!-- End custom js for this page -->
-        <script src="~/images/vendors/js/vendor.bundle.base.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js" integrity="sha512-8vfyGnaOX2EeMypNMptU+MwwK206Jk1I/tMQV4NkhOz+W8glENoMhGyU6n/6VgQUhQcJH8NqQgHhMtZjJJBv3A==" crossorigin="anonymous"></script>
-        @RenderSection("Scripts", required: false)
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
+    <script src="~/images/vendors/js/vendor.bundle.base.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/custom-data-source/dom-checkbox.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

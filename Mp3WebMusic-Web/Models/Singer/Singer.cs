@@ -11,9 +11,9 @@ namespace Mp3WebMusic_Web.Models.Singer
         public string SingerNickName { get; set; }
         public string SingerName { get; set; }
         public string Introduce { get; set; }
-        public int View { get; set; }
+        public int Views { get; set; }
         public string Avatar { get; set; }
         public string Message { get; set; }
-
+        public bool isDelete { get; set; }
     }
 }

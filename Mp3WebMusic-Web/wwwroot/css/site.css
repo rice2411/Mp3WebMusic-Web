@@ -3,6 +3,32 @@ for details on configuring this project to bundle and minify static web assets. 
 
 /* Provide sufficient contrast against white background */
 
+.btn-custom {
+    color: white;
+    background-color: #180032;
+    border-color: #421e77;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.btn-custom {
+    color: white;
+    background-color: #180032;
+    border-color: #421e77;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+    .btn-custom:hover,
+    .btn-custom:active,
+    .btn-custom:focus,
+    .btn-custom.active {
+        background: white;
+        color: #220d38;
+        border-color: #4fbfa8;
+    }
+
+
 a {
   color: #0366d6;
 }

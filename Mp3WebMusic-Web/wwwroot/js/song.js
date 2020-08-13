@@ -2,33 +2,71 @@ var song = {} || song;
 
 song.drawTable = function () {
     $.ajax({
-        url: "/Song/GetsSongByUpLoadday",
+        url: "/Song/GetsSongIsDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#tbsong').empty();
-            $.each(data.result, function (i,v) {
+            $.each(data.result, function (i, v) {
+                var check = v.isDelete == true ? "checked" : "";
                 $('#tbsong').append(
                     `<tr>
-                        <td>${v.songID}</td>
+                        <td >${v.songID}</td>
                         <td>${v.songName}</td>
                         <td><img src="${v.poster}" style="width: 50px; height: 50px;"></td>
                         <td>${v.singerNickName}</td>
                         <td>${v.authorName}</td>
                         <td>${v.views}</td>
+                        <td><input type="checkbox" id='songstatus${v.songID}' ${check}  onclick="ChangeStatus(${v.songID});"></td>
                         <td>
                             <a class="btn btn-success"
                                      href="/Song/Detail/${v.songID}">Detail</a> 
-                            <a href="javascripts:;" class="btn btn-danger text-light"
-                                    onclick="song.delete(${v.songID})">Delete</a> 
+                        
                         </td>
                     </tr>`
                 );
             });
+            $('#table').dataTable({
+                destroy: true,
+        "columnDefs": [
+            {
+                "targets": 6, 
+                "orderDataType": "dom-checkbox"
+            }
+        ]
+    });    
         }
     });
 };
 
+function ChangeStatus(id) {
+    if (document.getElementById(`songstatus${id}`).checked) {
+        $.ajax({
+            url: `/Song/Delete/${id}`,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                bootbox.alert(data.result.message);
+                song.drawTable();
+            }
+        });
+    } else {
+        $.ajax({
+            url: `/Song/Restore/${id}`,
+            method: "POST",
+            dataType: "json",
+            
+     
+            success: function (data) {
+                $('#restoreSinger').modal('hide');
+                bootbox.alert(data.result.message);
+                song.drawTable();
+            }
+
+        });
+        
+    }
+}
 
 song.delete = function (id) {
     bootbox.confirm({

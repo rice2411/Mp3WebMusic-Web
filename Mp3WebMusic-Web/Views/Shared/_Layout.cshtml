@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Mp3WebMusic_Web</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -14,30 +15,31 @@
         body {
             background-color: #0f011a;
         }
-        .nav-link{
+
+        .nav-link {
             color: white;
         }
+
         .navbar-custom .nav-item.active .nav-link,
         .navbar-custom .nav-item:hover .nav-link {
             color: yellow;
         }
-      
     </style>
 
-    <nav class="navbar navbar-expand-md navbar-light flex-row" style="background-color:#0f011a">
+    <nav class="navbar navbar-expand-md navbar-light flex-row" style="background-color:#0f011a ">
         <div class="container">
-            <a class="navbar-brand text-uppercase text-light" href="#"><img src="~/images/icon_zing_mp3_60.png"/></a>
+            <a class="navbar-brand text-uppercase text-light" href="#"><img src="~/images/icon_zing_mp3_60.png" /></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="autocomplete" style="width: 200%">
-                    <input class="search__input" type="search" placeholder="Search" aria-label="Search" autocomplete="off" id='myInput' list="mylist">
+                <div class="autocomplete">
+                    <input class="search__input" style="width: 980px" type="search" placeholder="Search" aria-label="Search" autocomplete="off" id='myInput' list="mylist">
                 </div>
-              @*  <datalist id='mylist'>
-            
-                </datalist>*@
+                @*  <datalist id='mylist'>
+
+                    </datalist>*@
                 &nbsp;
                 <ul class="navbar-nav mr-auto ">
                     <li class="nav-item active float-right">
@@ -54,20 +56,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
-    <nav class="navbar navbar-expand-md navbar-custom" style="background-color:#0f011a">
+    <nav class="navbar navbar-expand-md navbar-custom" id="scrollwithpage" style="background-color:#0f011a ;    width: 100%; z-index: 1;">
         <div class="collapse navbar-collapse px-3" id="navbarContent">
             <ul class="navbar-nav mx-md-auto mx-0 w-50 align-items-start nav-fill navbar-custom">
                 <li class="nav-item active">
-                    <a class="nav-link  text-uppercase " href="#" >Trang chủ</a>
+                    <a class="nav-link  text-uppercase " asp-controller="Home" asp-action="Index">Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  text-uppercase " href="#">Tác Giả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase " href="#">Chủ Đề</a>
+                    <a class="nav-link text-uppercase "asp-controller="Topic" asp-action="Search">Chủ Đề</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase " href="#">Ca Sĩ</a>
+                    <a class="nav-link text-uppercase " asp-controller="Singer" asp-action="Search">Ca Sĩ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  text-uppercase " href="#">Thể Loại</a>
@@ -112,8 +114,8 @@
 
     <div class="container">
         <br />
-            @RenderBody()
-       
+        @RenderBody()
+
     </div>
 
     <footer class="border-top footer text-muted">

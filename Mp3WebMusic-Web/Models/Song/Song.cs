@@ -16,5 +16,6 @@ namespace Mp3WebMusic_Web.Models.Song
         public string SingerNickName { get; set; }
         public string AuthorName { get; set; }
         public float Views { get; set; }
+        public bool isDelete { get; set; }
     }
 }

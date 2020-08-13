@@ -11,11 +11,12 @@
         </div>
         <br />
         <div class="table-responsive">
-            <table class="table table-striped text-center table-hover " style="font-size: 10px;">
+            <table class="table table-striped text-center table-hover " style="font-size: 10px;" id="table">
                 <thead class="thead-dark">
                     <tr>
                         <th> # </th>
                         <th> Topic Name </th>
+                        <th> Status</th>
                         <th> Actions </th>
 
                     </tr>
@@ -36,12 +37,23 @@
                     </div>
                     <input hidden id="TopicID" name="TopicName">
                     <div class="modal-body">
+                        <div asp-validation-summary="All"></div>
                         <div class="row form-group">
                             <div class="col-3">
                                 <label>TopicName</label>
                             </div>
                             <div class="col-9">
                                 <input type="text" id="TopicName" name="TopicName" class="form-control" data-rule-required="true">
+
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Poster</label>
+                            </div>
+                            <div class="col-9">
+                                <img src="" id="Poster" width="200" height="210" />
+                                <input type="file" id="FileUpload" class="custom-file" accept="image/*" onchange="topic.uploadAvatar(this)" />
                             </div>
                         </div>
                     </div>
@@ -51,7 +63,7 @@
 
                     </div>
                 </div>
-                <
+                
             </div>
         </div>
         <!-- Modal Edit -->
@@ -73,7 +85,14 @@
                             <div class="col-9">
                                 <input type="text" id="TopicNameEdit" name="TopicName" class="form-control" data-rule-required="true">
                             </div>
+                           <div class="col-3">
+                            <label>Poster</label>
                         </div>
+                        <div class="col-9">
+                            <img src="" id="editPoster" width="200" height="210" />
+                            <input type="file" id="FileUpload" class="custom-file" accept="image/*" onchange="topic.editAvatar(this)" />
+                        </div>
+                    </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
@@ -81,7 +100,7 @@
 
                     </div>
                 </div>
-                <
+                
             </div>
         </div>
         <!-- Modal Delete-->
@@ -122,4 +141,3 @@
     <script src="~/js/topic.js" asp-append-version="true"></script>
 
 }
-</div>
