@@ -1,111 +1,41 @@
 ﻿
-@model AuthorResult;
 
-<h1>Author Management </h1>
 
-<body>
-    <div class="row container">
-        <div class=" col-10 my-3">
-            <a href="javascript:void(0);" class="btn btn-info" style="margin-bottom: 15px; margin-left: 25px; border-radius: 60px; font-size: 25px;"
-               onclick="author.openAddEditAuthor()">Create</a>
+
+    <h1>Author Management</h1>
+    <div class="row">
+        <div class=" col-lg-12 mt-3">
+            <a href="javascript:void(0);" class="btn btn-info"
+               onclick="author.openAddTopic()">Create</a>
         </div>
     </div>
-    <div class="container">
-        <table id="tbAuthor" class="table table-bordered table-hover" style="font-size: 20px">
-            <thead>
-                <tr style="background-color:white">
-                    <th>Author ID</th>
-                    <th>Author Name</th>
-                    <th>Avata</th>
-                    <th>Introduce</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Default</td>
-                    <td>Defaultson</td>
-                    <td>def@somemail.com</td>
-                </tr>
-                <tr class="table-primary">
-                    <td>Primary</td>
-                    <td>Joe</td>
-                    <td>joe@example.com</td>
-                </tr>
-                <tr class="table-success>
-                    <td>Success</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                </tr>
-                <tr class="table-danger">
-                    <td>Danger</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                </tr>
-                <tr class="table-info">
-                    <td>Info</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                </tr>
-                <tr class="table-warning">
-                    <td>Warning</td>
-                    <td>Refs</td>
-                    <td>bo@example.com</td>
-                </tr>
-                <tr class="table-active">
-                    <td>Active</td>
-                    <td>Activeson</td>
-                    <td>act@example.com</td>
-                </tr>
-                <tr class="table-secondary">
-                    <td>Secondary</td>
-                    <td>Secondson</td>
-                    <td>sec@example.com</td>
-                </tr>
-                <tr class="table-light">
-                    <td>Light</td>
-                    <td>Angie</td>
-                    <td>angie@example.com</td>
-                </tr>
-                <tr class="table-dark text-dark">
-                    <td>Dark</td>
-                    <td>Bo</td>
-                    <td>bo@example.com</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- Modal -->
-    <div id="addEditAuthor" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <form id="fromAddEditAuthor">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add New Author</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <input hidden id="AuthorID" name="AuthorName">
-                    <div class="modal-body">
-                        <div class="row form-group">
-                            <div class="col-3">
-                                <label>AuthorName</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="text" id="AuthorName" name="AuthorName" class="form-control" data-rule-required="true">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                        <a href="javascript:;" class="btn btn-danger" onclick="author.save()">Save</a>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Tên tác giả</th>
+                <th>Xóa</th>
+                <th>Avatar</th>
+                <th>Tiểu sử</th>
+            </tr>
+            
+        </thead>
+        <tbody id="tbauthor">
+        </tbody>
+    </table>
+  
 
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</body>
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
+<!-- Bootstrap Core JavaScript -->
+<script src="~/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="~/js/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="~/js/startmin.js"></script>
 @section Scripts{
-    <script src="~/js/Author.js" asp-append-version="true"></script>
+    <script src="~/js/author.js" asp-append-version="true"></script>
+
 }

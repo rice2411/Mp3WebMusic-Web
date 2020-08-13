@@ -73,9 +73,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../pages/forms/basic_elements.html">
+                        <a class="nav-link" asp-action="Author" asp-controller="Author">
                             <span class="menu-title">Author</span>
-                            <i class="icon-user menu-icon"></i>
+                            <i class=" icon-layers menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Type" asp-controller="Type">
+                            <span class="menu-title">Type</span>
+                            <i class=" icon-layers menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -84,12 +90,7 @@
                             <i class=" icon-layers menu-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../pages/tables/basic-table.html">
-                            <span class="menu-title">Type</span>
-                            <i class="icon-layers menu-icon"></i>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                             <span class="menu-title">Recyle Bin</span>
@@ -98,6 +99,8 @@
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" asp-controller="Song" asp-action="SongIsDelete">Song</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-controller="Author" asp-action="AuthorIsDelete">Author</a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-controller="Type" asp-action="TypeIsDelete">Type</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Singer</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Author</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Topic</a></li>
