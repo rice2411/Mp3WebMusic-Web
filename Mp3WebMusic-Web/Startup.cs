@@ -45,7 +45,6 @@ namespace Mp3WebMusic_Web
             app.UseRouting();
 
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

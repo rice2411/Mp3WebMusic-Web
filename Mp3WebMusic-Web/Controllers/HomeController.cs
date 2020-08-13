@@ -16,6 +16,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             return View();
         }
+        [Route("/Home/GetsSongTrending")]
         public JsonResult GetsSongTrending()
         {
             var songs = new List<SongResult>();

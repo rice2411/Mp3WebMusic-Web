@@ -12,14 +12,11 @@ topic.drawTableIsDelete = function () {
                 $('#tbTopic').append(
                     `<tr>
                         <td>${v.topicID}</td>
-                        <td>${v.topicName}</td>
-                     
-                        <td>
-                          
-                            <a href="javascripts:;" class="btn btn-danger"
-                                        onclick="topic.delete(${v.topicID})">Restore</a>
-                           
-                            
+                        <td>${v.topicName}</td>                    
+                        <td>                          
+                                    <a href="javascripts:;" class="btn btn-danger"
+                                        onclick="topic.get(${v.topicID})">Restore</a>
+                                                      
                         </td>
                     </tr>`
                 );
@@ -28,88 +25,39 @@ topic.drawTableIsDelete = function () {
     });
 };
 
-topic.delete = function () {
-    bootbox.confirm({
-        title: "Delete topic?",
-        message: "Do you want to delete this topic.",
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> No'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Yes'
-            }
-        },
-        //sdsdsd
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: `/Topic/Delete`,
-                    method: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        bootbox.alert(data.result.message);
-                        home.drawTable();
-                    }
-                });
-            }
-        }
-    });
-}
 topic.get = function (id) {
-    $.ajax({
-        url: `/Topic/Get/${id}}`,
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            $('#TopicName').val(data.result.topicName);
-            $('#TopicID').val(data.result.topicID);
-            $('#addEditTopic').modal('show');
-        }
-    });
+    //$.ajax({
+    //    url: `/Topic/Get/${id}`,
+    //    method: "GET",
+    //    dataType: "json",
+    //    success: function (data) {
+    //        $('#TopicID').val(data.result.topicID);
+    //        $('#restoreTopic').modal('show');
+    //    }
+    //});
+    $('#TopicID').val(id);
+    $('#restoreTopic').modal('show');
 }
-
-topic.reset = function () {
-    $('#TopicName').val("");
-    $('#TopicID').val(0);
-
-}
-topic.add = function () {
+topic.restore = function () {
     var saveObj = {};
-    saveObj.TopicName = $('#TopicName').val();
     saveObj.TopicID = parseInt($('#TopicID').val());
     $.ajax({
-        url: `/Topic/Add/`,
+        url: `/Topic/Restore/`,
         method: "POST",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(saveObj),
         success: function (data) {
-            $('#addEditTopic').modal('hide');
+            $('#restoreTopic').modal('hide');
             bootbox.alert(data.result.message);
-            topic.drawTable();
+            topic.drawTableIsDelete();
         }
+
     });
 }
-topic.edit = function () {
-    var saveObj = {};
-    saveObj.TopicName = $('#TopicName').val();
-    saveObj.TopicID = parseInt($('#TopicID').val());
-    $.ajax({
-        url: `/Topic/Edit/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            $('#addEditTopic').modal('hide');
-            bootbox.alert(data.result.message);
-            topic.drawTable();
-        }
-    });
-}
+
 topic.init = function () {
-    topic.drawTable();
+    topic.drawTableIsDelete();
 };
 
 $(document).ready(function () {

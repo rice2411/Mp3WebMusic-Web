@@ -2,9 +2,7 @@
 @import url(https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css);
 
 
-.sub-title {
-    line-height: 0;
-}
+
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
 @import url(https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css);
 
@@ -13,15 +11,16 @@
 }
 
 body .player, html .player, a .player {
-    width: 500px;
-    height: 75px;
+    width: 470px;
+    height: 80px;
     background: #0f011a;
     border-bottom: 4px #ccc solid;
     position: relative;
     color: white;
     text-align: left;
     text-shadow: none;
-    border-bottom: none;
+    border-bottom: 1px solid #22142e;
+ 
 }
 
     body .player .album-art, html .player .album-art {
@@ -29,8 +28,8 @@ body .player, html .player, a .player {
         left: 0;
         width: 15%;
         height: 100%;
-        box-shadow: 3px 0 3px 0 rgba(0, 0, 0, 0.4);
-        padding: 5px;
+   
+        padding: 10px;
     }
 
         body .player .album-art .cover, html .player .album-art .cover, body .player .album-art  #cover {
@@ -47,17 +46,20 @@ body .player, html .player, a .player {
         height: 50px;
         top: 20%;
         left: 20%;
-        overflow: hidden;
+      
     }
 
         body .player .description .title, html .player .description .title {
             color: white;
             font-size: 24px;
             font-weight: 100;
+           
         }
 
         body .player .description .sub-title, html .player .description .sub-title {
-            font-size: 13px;
+            margin-top: 5px;
+            line-height: 0;
+            font-size: 17px;
             font-weight: 100;
             color: #999;
         }
@@ -78,16 +80,7 @@ body .player, html .player, a .player {
         cursor: pointer;
     }
 
-        body .player .play-button .lp-background, html .player .play-button .lp-background {
-            transition: all 0.35s ease;
-            background: url("http://i65.tinypic.com/v5wy3b.png");
-            background-size: cover;
-            animation: spin 1s infinite linear;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            position: absolute;
-        }
+      
 
         body .player .play-button i, html .player .play-button i {
             z-index: 100;
@@ -126,23 +119,4 @@ body .player, html .player, a .player {
         position: absolute;
         cursor: pointer;
     }
-.list-group-item div:hover {
-    opacity: 0.7;
-}
-.list-group-item:hover .middle2 {
-    opacity: 1;
-}
-.middle2 {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 7.5%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: left;
-}
-.text2 {
-   color: white;
-    font-size: 30px;
-}
+

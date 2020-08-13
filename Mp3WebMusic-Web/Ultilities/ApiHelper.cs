@@ -47,7 +47,7 @@ namespace Mp3WebMusic_Web.Ultilities
             }
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            using ( var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 result = streamReader.ReadToEnd();
             }

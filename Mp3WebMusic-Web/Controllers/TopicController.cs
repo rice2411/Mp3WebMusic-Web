@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mp3WebMusic_Web.Models;
+using Mp3WebMusic_Web.Models.Topic;
 using Mp3WebMusic_Web.Ultilities;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Mp3WebMusic_Web.Controllers
            
             return View("~/Views/Dashboard/Topic/Topic.cshtml");
         }
-        public ViewResult TopicIsDElete()
+        public ViewResult TopicIsDelete()
         {
 
             return View("~/Views/Dashboard/Topic/TopicIsDelete.cshtml");
@@ -24,28 +25,68 @@ namespace Mp3WebMusic_Web.Controllers
         [Route("/Topic/GetsTopicIsNotDelete")]
         public JsonResult GetsTopicIsNotDelete() 
         { 
-            var topics = new List<TopicResult>(); 
-            topics = ApiHelper<List<TopicResult>>.HttpGetAsync($"{Helper.ApiUrl}/Api/Topic/GetsTopicIsNotDelete"); 
+            var topics = new List<GetTopic>(); 
+            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsNotDelete"); 
             var json = Json(new { topics });
             return json; 
         }
         [Route("/Topic/GetsTopicIsDelete")]
         public JsonResult GetsTopicIsDelete()
         {
-            var topics = new List<TopicResult>();
-            topics = ApiHelper<List<TopicResult>>.HttpGetAsync($"{Helper.ApiUrl}/Api/Topic/GetsTopicIsDelete");
+            var topics = new List<GetTopic>();
+            topics = ApiHelper<List<GetTopic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsDelete");
             var json = Json(new { topics });
             return json;
         }
         [Route("/Topic/Add")]
-        public JsonResult Add([FromBody] TopicResult model)
+        public JsonResult Add([FromBody] AddTopicRequest model)
         {
-            var result = new TopicResult();
-            result = ApiHelper<TopicResult>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}/Api/Topic/Add",
+            var result = new SaveTopic();
+            result = ApiHelper<SaveTopic>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Topic/Add",
                                                     model
                                                 );
             return Json(new { result });
         }
+        [Route("/Topic/Edit")]
+        public JsonResult Edit([FromBody] EditTopicRequest model)
+        {
+            var result = new SaveTopic();
+            result = ApiHelper<SaveTopic>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Topic/Edit",
+                                                    model
+                                                );
+            return Json(new { result });
+        }
+        [Route("/Topic/Get/{id}")]
+        public JsonResult Get(int id)
+        {
+            var result = new GetTopic();
+            result = ApiHelper<GetTopic>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Topic/Get/{id}"
+                                                );
+            return Json(new {result});
+        }
+        [Route("/Topic/Delete/")]
+        public JsonResult Delete([FromBody] DeleteTopicRequest model)
+        {
+            var result = new SaveTopic();
+            result = ApiHelper<SaveTopic>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Topic/Delete",
+                                                    model
+                                                );
+            return Json(new { result });
+        }
+        [Route("/Topic/Restore/")]
+        public JsonResult Restore([FromBody] DeleteTopicRequest model)
+        {
+            var result = new SaveTopic();
+            result = ApiHelper<SaveTopic>.HttpPostAsync(
+                                                    $"{Helper.ApiUrl}Api/Topic/Restore",
+                                                    model
+                                                );
+            return Json(new { result });
+        }
+
     }
 }

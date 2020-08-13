@@ -1,0 +1,43 @@
+﻿
+
+
+
+    <h1>Song Management</h1>
+    <div class="row">
+        <div class=" col-lg-12 mt-3">
+            <a href="javascript:void(0);" class="btn btn-info"
+               onclick="topic.openAddTopic()">Create</a>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>SongID</th>
+                <th>SongName</th>
+                <th>Poster</th>
+                <th>SingerNickName</th>
+                <th>AuthorName</th>
+                <th>Views</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tbsong">
+        </tbody>
+    </table>
+  
+
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="~/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="~/js/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="~/js/startmin.js"></script>
+@section Scripts{
+    <script src="~/js/song.js" asp-append-version="true"></script>
+
+}
