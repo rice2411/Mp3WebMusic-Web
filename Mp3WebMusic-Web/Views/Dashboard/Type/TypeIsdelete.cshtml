@@ -1,0 +1,150 @@
+﻿
+
+
+<div>
+    <h1>Type Management</h1>
+    <div class="row">
+        <div class=" col-lg-12 mt-3">
+            <a href="javascript:void(0);" class="btn btn-info"
+               onclick="type.openAddType()">Create</a>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                
+                <th>Tên chủ đề</th>
+                <th>Xóa chủ đề</th>
+                
+            </tr>
+        </thead>
+        <tbody id="tbtype">
+        </tbody>
+    </table>
+    <!-- Modal Create -->
+    <div id="addType" class="modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Type</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <input hidden id="TypeID" name="TypeName">
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>TypeName</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="TypeName" name="TypeName" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    <a href="javascript:;" class="btn btn-success" onclick="type.add()">Save</a>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- Modal Edit -->
+    <div id="detailtype" class="modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Type</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <input hidden id="TypeIDEdit" name="TypeName">
+                <div class="modal-body">
+                   @* <div class="row form-group">
+                   
+                        <div class="col-3">
+                            <label>Song Name</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="songName" name="songName" class="form-control" data-rule-required="true">
+                        </div>
+                        <div class="col-3">
+                            <label>Song Poster</label>
+                        </div>
+                        <div class="col-9">
+                            <img src="" style="width: 50px; height: 50px;" id="songPoster" name="songName" class="form-control" data-rule-required="true">
+                        </div>
+                        <div class="col-3">
+                            <label>Singer</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="songSinger" name="songName" class="form-control" data-rule-required="true">
+                        </div>
+                        <div class="col-3">
+                            <label>Author</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="songAuthor" name="songName" class="form-control" data-rule-required="true">
+                        </div>
+                        <div class="col-3">
+                            <label>Audio</label>
+                        </div>
+                        <div class="col-9">
+                            <audio controls>
+                                <source src="" id="songAudio" type="audio/mpeg">
+                            
+                             
+                            </audio>
+                        </div>
+                    </div>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    <a href="javascript:;" class="btn btn-primary" onclick="type.edit()">Update</a>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- Modal Delete-->
+    <div class="modal fade" id="deleteType" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Type</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to delete this type?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <a href="javascript:;" class="btn btn-danger" onclick="type.delete()">Yes</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="~/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="~/js/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="~/js/startmin.js"></script>
+@section Scripts{
+    <script src="~/js/typeisdelete.js" asp-append-version="true"></script>
+
+}
