@@ -13,14 +13,13 @@ topic.drawTable = function () {
       
                 $('#contentsearch').append(
                     `<div class='col-3'>
-                       <div class="card img-fluid my-4"  >
-                        <img class="card-img-top" src="${v.poster}" alt="Card image"style=' opacity: 0.5;' >
-                        <div class="card-img-overlay text-center">
-                          <h4 class="card-title">${v.topicName}</h4>
-                       
-                          <a href="#" class="btn btn-primary">See Profile</a>
+                        <div class="hovereffect">
+                            <img class="img-responsive" src="${v.poster}" style="filter: brightness(50%); height: 200px;  width: 100%">
+                         
+                          <div class="overlay">
+                          <h2>${v.topicName}</h2>
+                            </div>
                         </div>
-                      </div>
                 </div>
                     `
                 );
