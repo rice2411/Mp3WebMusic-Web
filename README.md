@@ -17,8 +17,9 @@
 - Datatable Dom-checkbox
 - Animate on scroll
 ## STORE PROCEDURE
-- <a href ="" >Song</a>
-- <a href ="" >Singer</a>
-- <a href ="" >Author</a>
-- <a href ="" >Topic</a>
-- <a href ="" >Type</a>
+- <a href ="https://github.com/rice2411/Mp3WebMusic/tree/master/Store%20procedure/Song" >Song</a>
+- <a href ="https://github.com/rice2411/Mp3WebMusic/tree/master/Store%20procedure/Singer" >Singer</a>
+- <a href ="https://github.com/rice2411/Mp3WebMusic/tree/master/Store%20procedure/Banner"> Banner </a>
+- <a href ="https://github.com/rice2411/Mp3WebMusic/tree/master/Store%20procedure/Author" >Author</a>
+- <a href ="https://github.com/rice2411/Mp3WebMusic/tree/master/Store%20procedure/Topic" >Topic</a>
+- <a href ="https://github.com/rice2411/Mp3WebMusic/tree/master/Store%20procedure/Type" >Type</a>
