@@ -36,24 +36,6 @@ topic.drawTable = function () {
         }
     });
 };
-topic.uploadAvatar = function (input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#Poster').attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-topic.editAvatar = function (input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#editPoster').attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 function ChangeStatus(id) {
     if (document.getElementById(`songstatus${id}`).checked) {
         $.ajax({
@@ -80,6 +62,25 @@ function ChangeStatus(id) {
 
         });
 
+    }
+}
+
+topic.uploadAvatar = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#Poster').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+topic.editAvatar = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#editPoster').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
     }
 }
 
@@ -173,7 +174,7 @@ topic.reset = function () {
 topic.add = function () {
 
     let topicObj = {};
-    topicObj.topicID = $('#TopicID').val();
+
     topicObj.topicName = $('#TopicName').val();
     topicObj.Poster = $('#Poster').attr('src');
     $.ajax({

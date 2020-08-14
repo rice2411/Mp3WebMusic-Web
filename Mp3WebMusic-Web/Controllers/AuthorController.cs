@@ -10,6 +10,11 @@ namespace Mp3WebMusic_Web.Controllers
 {
     public class AuthorController : Controller
     {
+        public ViewResult Search()
+        {
+
+            return View("~/Views/Home/AuthorList.cshtml");
+        }
         public ViewResult AuthorDetail(int id)
         {
             var author = new Author()
@@ -23,11 +28,7 @@ namespace Mp3WebMusic_Web.Controllers
 
             return View("~/Views/Dashboard/Author/Author.cshtml");
         }
-        public ViewResult AutthorIsDelete()
-        {
-
-            return View("~/Views/Dashboard/Author/AuthorIsDelete.cshtml");
-        }
+  
         [Route("/Author/GetsAuthorIsNotDelete")]
         public JsonResult GetsAuthorIsNotDelete()
         {
@@ -49,7 +50,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new Author();
             result = ApiHelper<Author>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Author/Add",
+                                                    $"{Helper.ApiUrl}Api/Author/AddAuthor",
                                                     model
                                                 );
             return Json(new { result });
@@ -59,7 +60,7 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new Author();
             result = ApiHelper<Author>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Author/Edit",
+                                                    $"{Helper.ApiUrl}Api/Author/EditAuthor",
                                                     model
                                                 );
             return Json(new { result });
@@ -69,27 +70,27 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new Author();
             result = ApiHelper<Author>.HttpGetAsync(
-                                                    $"{Helper.ApiUrl}Api/Author/Get/{id}"
+                                                    $"{Helper.ApiUrl}Api/Author/GetAuthorById/{id}"
                                                 );
             return Json(new { result });
         }
         [Route("/Author/Delete/{id}")]
-        public JsonResult Delete([FromBody] Author model)
+        public JsonResult Delete(int id)
         {
             var result = new Author();
-            result = ApiHelper<Author>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Author/Delete",
-                                                    model
+            result = ApiHelper<Author>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Author/DeleteAuthor/{id}",
+                                                       "post"
                                                 );
             return Json(new { result });
         }
         [Route("/Author/Restore/{id}")]
-        public JsonResult Restore([FromBody] Author model)
+        public JsonResult Restore(int id)
         {
             var result = new Author();
-            result = ApiHelper<Author>.HttpPostAsync(
-                                                    $"{Helper.ApiUrl}Api/Author/Restore",
-                                                    model
+            result = ApiHelper<Author>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Author/RestoreAuthor/{id}",
+                                                    "post"
                                                 );
             return Json(new { result });
         }
