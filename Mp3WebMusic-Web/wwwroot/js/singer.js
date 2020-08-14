@@ -135,13 +135,13 @@ singer.reset = function () {
 
 singer.add = function () {
     var saveObj = {};
-    saveObj.SingerName = $('#SingerName').val();
-    saveObj.SingerID = parseInt($('#SingerID').val());
-    saveObj.SingerNickName = $('#SingerNickName').val();
-    saveObj.Introduce = $('#Introduce').val();
-    saveObj.Avatar = $('#Avatar').attr('src');
+    saveObj.singerName = $('#SingerName').val();
+
+    saveObj.singerNickName = $('#SingerNickName').val();
+    saveObj.introduce = $('#Introduce').val();
+    saveObj.avatar = $('#Avatar').attr('src');
     $.ajax({
-        url: `/Singer/Add/`,
+        url: `/Singer/Add`,
         method: "POST",
         dataType: "json",
         contentType: "application/json",

@@ -1,39 +1,35 @@
-var list = {} || list;
-var songs = [];
-var songsid = [];
-list.createlist = function () {
+var lists = {} || lists;
+var songss = [];
+var songssid = [];
+lists.createlist = function () {
     $.ajax({
-        url: "/Home/GetsSongTrending",
+        url: "/Author/GetsAuthorIsNotDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#mylist').empty();
-            $.each(data.songs, function (i, v) {
-                songs.push(v.songName)
-                songsid.push(v.songID)
+            $.each(data.authors, function (i, v) {
+                songss.push(v.authorName)
+                songssid.push(v.authorID)
             });
         }
     })
-      
+
 };
 
-list.init = function () {
-  
-    list.createlist();
+lists.init = function () {
+
+    lists.createlist();
 };
-$('#serachList').on('input', function () {
-   
-    window.location.href = '/Song/Song';
-});
+
 $(document).ready(function () {
-   
-    list.init();
-  
+    lists.init();
 
-    
+
+
 });
 
-function autocomplete(inp, arr,arr2) {
+function autocomplete1(inp, arr, arr2) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -46,29 +42,29 @@ function autocomplete(inp, arr,arr2) {
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
+        a.setAttribute("id", this.id + "autocomplete1-list");
+        a.setAttribute("class", "autocomplete1-items");
         /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
         /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
-        /*check if the item starts with the same letters as the text field value:*/
+            /*check if the item starts with the same letters as the text field value:*/
 
-            if (arr[i].toUpperCase().includes(val.toUpperCase()) ) {
+            if (arr[i].toUpperCase().includes(val.toUpperCase())) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/
-                b.innerHTML =  arr[i].substr(0, val.length);
+                b.innerHTML = arr[i].substr(0, val.length);
                 b.innerHTML += arr[i].substr(val.length);
                 /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' id='songname' value='" + arr[i] + "'>";
-                b.innerHTML += "<input type='hidden' id='songid'value='" + arr2[i] + "'>";
+                b.innerHTML += "<input type='hidden' id='authorname' value='" + arr[i] + "'>";
+                b.innerHTML += "<input type='hidden' id='authorid'value='" + arr2[i] + "'>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
                 b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
-                    inp.value = document.getElementById("songname").value;
-                    var id = document.getElementById('songid').value;
-                    window.location.href = '/Song/Detail/' + id;
+                    inp.value = document.getElementById("authorname").value;
+                    var id = document.getElementById('authorid').value;
+
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
@@ -79,7 +75,7 @@ function autocomplete(inp, arr,arr2) {
     });
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function (e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
+        var x = document.getElementById(this.id + "autocomplete1-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
             /*If the arrow DOWN key is pressed,
@@ -110,18 +106,18 @@ function autocomplete(inp, arr,arr2) {
         if (currentFocus >= x.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (x.length - 1);
         /*add class "autocomplete-active":*/
-        x[currentFocus].classList.add("autocomplete-active");
+        x[currentFocus].classList.add("autocomplete1-active");
     }
     function removeActive(x) {
         /*a function to remove the "active" class from all autocomplete items:*/
         for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
+            x[i].classList.remove("autocomplete1-active");
         }
     }
     function closeAllLists(elmnt) {
         /*close all autocomplete lists in the document,
         except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
+        var x = document.getElementsByClassName("autocomplete1-items");
         for (var i = 0; i < x.length; i++) {
             if (elmnt != x[i] && elmnt != inp) {
                 x[i].parentNode.removeChild(x[i]);
@@ -130,7 +126,7 @@ function autocomplete(inp, arr,arr2) {
     }
     /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
-        
+
         closeAllLists(e.target);
     });
 }
@@ -139,5 +135,5 @@ function autocomplete(inp, arr,arr2) {
 
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), songs, songsid);
+autocomplete1(document.getElementById("songAuthor"), songss, songssid);
 
