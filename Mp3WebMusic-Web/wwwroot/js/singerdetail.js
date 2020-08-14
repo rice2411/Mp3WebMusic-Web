@@ -56,11 +56,11 @@ singer.drawTable = function () {
             $.each(data.result, function (i, v) {
 
                 $('#list').append(
-                    `
+                    `  <h2 class="text-light">Bài Hát: </h2>
 
-                            <div class="player" onclick='GetContent(${v.songID})' >
+                            <div class="player" onclick='GetContent(${v.songID})' style="width: 100%">
      
-                                <div class="album-art">
+                                <div class="album-art" style="width: 10%! important">
                                     <div  class="cover " >
 
                                         <img src="${v.poster}" class='image' style="height: 100%; width: 100%; border-radius: 3%;">
@@ -68,8 +68,9 @@ singer.drawTable = function () {
                                 </div>
                                 <div class="description">
                                     <div class="title" ><b>${v.songName} </b></div>
+                                    <div class="sub-title">${v.singerNickName}</div>
                                 </div>
-                                <div class="middle2">
+                                <div class="middle3">
                                     <div class="text2"><i class="fal fa-play-circle"></i></div>
                                 </div>
                             </div>

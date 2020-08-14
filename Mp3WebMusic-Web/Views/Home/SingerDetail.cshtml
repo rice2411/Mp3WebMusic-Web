@@ -4,6 +4,11 @@
 @model Mp3WebMusic_Web.Models.Singer.Singer
     <link rel="stylesheet" href="~/css/resize.css" />
     <link rel="stylesheet" href="~/css/musicard.css" />
+    <style>
+        #list > div:hover {
+            background-color: #2a1b38;
+        }
+    </style>
     <input hidden asp-for="SingerID" id="singerid" />
     <div class="row">
 
@@ -13,6 +18,7 @@
         </div>
         <div class="col-8">
             <div id="introduce"></div>
+          
             <div id="list"></div>
         </div>
 
