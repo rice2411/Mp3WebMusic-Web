@@ -6,6 +6,14 @@ namespace Mp3WebMusic_Web.Controllers
 {
     public class SingerController : Controller
     {
+        public ViewResult Detail(int id)
+        {
+            var singer = new Singer()
+            {
+                SingerID = id
+            };
+            return View("~/Views/Home/SingerDetail.cshtml",singer);
+        }
         public ViewResult Search()
         {
 

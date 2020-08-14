@@ -18,7 +18,7 @@ singer.drawTable = function () {
                     <div class="card-body">
                       <h4  style="font-size: 15px;">${v.singerNickName}</h4>
                       <p class="card-text" style='color: gray'>${v.views} lượt xem</p>
-                      <a href="#" class="btn btn-custom">See Profile</a>
+                      <a href="/Singer/Detail/${v.singerID}" class="btn btn-custom">See Profile</a>
                     </div>
                   </div>
                 </div>
@@ -30,6 +30,7 @@ singer.drawTable = function () {
     });
 
 };
+
 
 
 
