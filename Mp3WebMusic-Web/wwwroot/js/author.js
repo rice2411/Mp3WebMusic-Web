@@ -7,109 +7,154 @@ author.drawTable = function () {
         dataType: "json",
         success: function (data) {
             $('#tbauthor').empty();
-            $.each(data.authors, function (i,v) {
+            $.each(data.authors, function (i, v) {
+                var check = v.isDelete == true ? "checked" : "";
                 $('#tbauthor').append(
                     `<tr>
                         <td>${v.authorID}</td>
                         <td>${v.authorName}</td>
-                        <td><img src="${v.Avatar}" style="width: 50px; height: 50px;"></td>
-                        
-                        <td>
-                            <a class="btn btn-success"
-                                     href="/Author/AuthorDetail/${v.authorID}">Detail</a> 
-                            <a href="javascripts:;" class="btn btn-danger text-light"
-                                    onclick="author.delete(${v.authorID})">Delete</a> 
+                              <td><img src='${v.avatar}' width='80' height='90'/></td>
+                          <td><input type="checkbox" id='songstatus${v.authorID}' ${check}  onclick="ChangeStatus(${v.authorID});"></td>
+                          <td>
+                            <a href="javascript:;" onclick="author.get(${v.authorID})" class="btn btn-success">Edit</a> 
+                     
                         </td>
                     </tr>`
                 );
             });
+            $('#table').dataTable({
+                destroy: true,
+                "columnDefs": [
+                    {
+                        "targets": 3,
+                        "orderDataType": "dom-checkbox"
+                    }
+                ]
+            });    
         }
     });
 };
-
-
-author.delete = function (id) {
-    bootbox.confirm({
-        title: "Delete author?",
-        message: "Do you want to delete this author.",
-        buttons: {
-            cancel: {
-                label: 'No',
-                className: 'btn btn-secondary btn-fw'
-            },
-            confirm: {
-                label: ' Yes',
-                className: 'btn btn-primary btn-fw'
+function ChangeStatus(id) {
+    if (document.getElementById(`songstatus${id}`).checked) {
+        $.ajax({
+            url: `/Author/Delete/${id}`,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                bootbox.alert(data.result.message);
+                author.drawTable();
             }
-        },
+        });
+    } else {
+        $.ajax({
+            url: `/Author/Restore/${id}`,
+            method: "POST",
+            dataType: "json",
+
+
+            success: function (data) {
        
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: `/Author/Delete/${id}`,
-                    method: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        bootbox.alert(data.result.message);
-                        author.drawTable();
-                    }
-                });
+                bootbox.alert(data.result.message);
+                author.drawTable();
             }
-        }
-    });
+
+        });
+
+    }
 }
-author.uploadImage = function (input) {
+
+
+
+author.openAddauthor = function () {
+    author.reset();
+    $('#addAuthor').appendTo("body").modal('show');
+};
+
+
+
+author.uploadAvatar = function (input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#authorAvatar').attr('src', e.target.result);
-          
+            $('#Avatar').attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
     }
-};
-
-
-author.get = function () {
-    var id = parseInt($('#authorID').val());
+}
+author.editAvatar = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#editAvatar').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+author.gettodelete = function (id) {
     $.ajax({
-        url: `/Author/GetAuthorById/${id}`,
+        url: `/author/GetsauthorByID/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#authorName').val(data.result.authorName);
-            $('#authorAvatar').attr('src',data.result.avatar);
-            $('#authorIntroduce').val(data.result.authorIntroduce); 
+            $('#authorID').val(data.result.authorID);
+            $('#deleteauthor').modal('show');
         }
     });
 }
 
+author.get = function (id) {
+    $.ajax({
+        url: `/Author/Get/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#editAuthorName').val(data.result.authorName);
+            $('#editAuthorID').val(data.result.authorID);
+       
+            $('#editIntroduce').val(data.result.introduce);
+            $('#editAvatar').attr("src", data.result.avatar);
+            $('#editAuthor').modal('show');
+        }
+    });
+}
+author.reset = function () {
+    //$('#EmployeeName').val("");
+    //$('#EmployeeId').val("0");
+    //$('#DoB').val();
+    //$('#Gender').val(1);
+    //$('#Department').val(departId);
+    //$('#Avatar').attr('src', '/images/noavatar.png')
+    $('#addEditEmployee').find('.modal-title').text('Add New Employee');
+}
 
 author.add = function () {
+    var saveObj = {};
+    saveObj.authorName = $('#AuthorName').val();
 
-    let authorObj = {};
-    authorObj.authorID = $('#authorID').val();
-    authorObj.authorName = $('#authorName').val();
+
+    saveObj.Introduce = $('#Introduce').val();
+    saveObj.Avatar = $('#Avatar').attr('src');
     $.ajax({
-        url: '/Author/Add',
+        url: `/Author/Add/`,
         method: "POST",
-        dataType: "JSON",
-        contentType: "application/JSON",
-        data: JSON.stringify(authorObj),
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveObj),
         success: function (data) {
-            author.drawTable();
-            $('#addauthor').modal('hide');
+            $('#addAuthor').modal('hide');
             bootbox.alert(data.result.message);
+            author.drawTable();
         }
-    })
-};
+    });
+}
+
 author.edit = function () {
     var saveObj = {};
-    saveObj.authorName = $('#authorName').val();
-    saveObj.authorID = parseInt($('#authorID').val());     
-    saveObj.avatar = $('#authorAvatar').attr('src');
-    saveObj.authorIntroduce = $('#authorIntroduce').val();
-    debugger;
+    saveObj.authorName = $('#editAuthorName').val();
+    saveObj.authorID = parseInt($('#editAuthorID').val());
+
+    saveObj.introduce = $('#editIntroduce').val();
+    saveObj.avatar = $('#editAvatar').attr('src');
     $.ajax({
         url: `/Author/Edit/`,
         method: "POST",
@@ -117,18 +162,33 @@ author.edit = function () {
         contentType: "application/json",
         data: JSON.stringify(saveObj),
         success: function (data) {
-            bootbox.alert({
-                message: data.result.message,
-                callback: function () {
-                    window.location.href='/Author/Author';
-                },
-                closeButton: false
-            })
-
+            $('#editAuthor').modal('hide');
+            bootbox.alert(data.result.message);
+            author.drawTable();
         }
-    
     });
 }
+author.delete = function () {
+    var saveObj = {};
+    saveObj.authorID = parseInt($('#authorID').val());
+
+    $.ajax({
+        url: `/Author/Delete/`,
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveObj),
+        success: function (data) {
+            $('#deleteAuthor').modal('hide');
+            bootbox.alert(data.result.message);
+            author.drawTable();
+        }
+
+    });
+}
+
+
+
 
 author.init = function () {
     author.drawTable();
