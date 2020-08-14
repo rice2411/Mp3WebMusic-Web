@@ -38,7 +38,10 @@ song.drawTable = function () {
         }
     });
 };
+song.openAddsong = function () {
 
+    $('#addSong').appendTo("body").modal('show');
+};
 function ChangeStatus(id) {
     if (document.getElementById(`songstatus${id}`).checked) {
         $.ajax({
@@ -123,21 +126,32 @@ song.uploadAudio = function (input) {
 
 song.add = function () {
 
-    let songObj = {};
-    songObj.songID = $('#songID').val();
-    songObj.songName = $('#songName').val();
+    var saveObj = {};
+    saveObj.songName = $('#songName').val();
+
+    saveObj.typeID = parseInt($('#songType').val());
+    saveObj.topicID = parseInt($('#songTopic').val());
+    saveObj.singerNickName = $('#songSinger').val();
+    saveObj.authorName = $('#songAuthor').val();
+    saveObj.poster = $('#songPoster').attr('src');
+    saveObj.audio = $('#songAudio').attr('src');
+    debugger;
     $.ajax({
-        url: '/song/Add',
+        url: `/Song/Add/`,
         method: "POST",
-        dataType: "JSON",
-        contentType: "application/JSON",
-        data: JSON.stringify(songObj),
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveObj),
         success: function (data) {
+            bootbox.alert({
+                message: data.result.message
+           
+            })
+            $('#addSong').modal('hide');
             song.drawTable();
-            $('#addsong').modal('hide');
-            bootbox.alert(data.result.message);
         }
-    })
+
+    });
 };
 
 song.init = function () {

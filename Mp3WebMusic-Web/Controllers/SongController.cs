@@ -59,6 +59,7 @@ namespace Mp3WebMusic_Web.Controllers
         [Route("/Song/GetSongById/{id}")]
         public JsonResult GetSongById(int id)
         {
+            
             var result = new Song();
             result = ApiHelper<Song>.HttpGetAsync($"{Helper.ApiUrl}Api/Song/GetSongById/{id}");
             return Json(new { result });
@@ -85,6 +86,14 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var result = new Messages();
             result = ApiHelper<Messages>.HttpGetAsync($"{Helper.ApiUrl}Api/Song/RestoreSong/{id}", "post");
+            return Json(new { result });
+
+        }
+        [Route("/Song/Add")]
+        public JsonResult AddSong([FromBody] Song model)
+        {
+            var result = new Messages();
+            result = ApiHelper<Messages>.HttpPostAsync($"{Helper.ApiUrl}Api/Song/AddSong", model);
             return Json(new { result });
 
         }

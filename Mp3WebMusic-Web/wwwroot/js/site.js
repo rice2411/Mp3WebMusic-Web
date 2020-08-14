@@ -24,6 +24,7 @@
             $(this).addClass('active');
         }
     });
+
 });
 var yOffset = $("#scrollwithpage").offset().top;
 $(window).scroll(function () {

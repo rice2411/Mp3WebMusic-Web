@@ -1,83 +1,155 @@
-var type = {} || type;
+var types = {} || types;
 
-type.drawTable = function () {
+types.drawTable = function () {
     $.ajax({
         url: "/Type/GetsTypeIsDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#tbtype').empty();
-            $.each(data.types, function (i,v) {
+            $.each(data.types, function (i, v) {
+                var check = v.isDelete == true ? "checked" : "";
                 $('#tbtype').append(
                     `<tr>
-                        <td>${v.typeID}</td>
                         <td>${v.typeName}</td>
-                        
+                        <td><img src='${v.poster}' width='80' height='90'/></td>
+                           <td><input type="checkbox" id='songstatus${v.typeID}' ${check}  onclick="ChangeStatus(${v.typeID});"></td>
                         <td>
-                            <a class="btn btn-success"
-                                     href="/Type/TypeDetail/${v.typeID}">Detail</a> 
-                            <a href="javascripts:;" class="btn btn-danger text-light"
-                                    onclick="type.delete(${v.typeID})">Delete</a> 
+                           <a href="javascripts:;" class="btn btn-success"
+                                       onclick="types.get(${v.typeID})">Edit</a> 
+                           
                         </td>
                     </tr>`
                 );
             });
+            $('#table').dataTable({
+                destroy: true,
+                "columnDefs": [
+                    {
+                        "targets": 2,
+                        "orderDataType": "dom-checkbox"
+                    }
+                ]
+            });    
         }
     });
 };
+function ChangeStatus(id) {
+    if (document.getElementById(`songstatus${id}`).checked) {
+        $.ajax({
+            url: `/Type/Delete/${id}`,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                bootbox.alert(data.result.message);
+                types.drawTable();
+            }
+        });
+    } else {
+        $.ajax({
+            url: `/Type/Restore/${id}`,
+            method: "POST",
+            dataType: "json",
 
 
-type.delete = function (id) {
-    bootbox.confirm({
-        title: "Delete type?",
-        message: "Do you want to delete this type.",
-        buttons: {
-            cancel: {
-                label: 'No',
-                className: 'btn btn-secondary btn-fw'
-            },
-            confirm: {
-                label: ' Yes',
-                className: 'btn btn-primary btn-fw'
+            success: function (data) {
+
+                bootbox.alert(data.result.message);
+                types.drawTable();
             }
-        },
-       
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: `/Type/Delete/${id}`,
-                    method: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        bootbox.alert(data.result.message);
-                        type.drawTable();
-                    }
-                });
-            }
-        }
-    });
+
+        });
+
+    }
 }
 
 
-type.get = function () {
-    var id = parseInt($('#typeID').val());
+types.uploadPoster = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#Poster').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+types.editPoster = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#editPoster').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+types.openAddType = function () {
+    types.reset();
+    $('#addType').modal('show');
+
+};
+types.openEditType = function () {
+    types.reset();
+
+    $('#editType').modal('show');
+
+};
+
+types.delete = function () {
+    var saveObj = {};
+
+    saveObj.TypeID = parseInt($('#TypeID').val());
     $.ajax({
-        url: `/Type/GetTypeById/${id}`,
+        url: `/Type/Delete/`,
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveObj),
+        success: function (data) {
+            $('#deleteType').modal('hide');
+            bootbox.alert(data.result.message);
+            type.drawTable();
+        }
+
+    });
+}
+types.get = function (id) {
+    $.ajax({
+        url: `/Type/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#typeName').val(data.result.typeName);
-            
+            $('#TypeNameEdit').val(data.result.typeName);
+            $('#TypeIDEdit').val(data.result.typeID);
+            $('#editPoster').attr("src", data.result.poster);
+            $('#editType').modal('show');
+
         }
     });
 }
+types.gettodelete = function (id) {
+    $.ajax({
+        url: `/Type/Get/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#TypeID').val(data.result.typeID);
+            $('#deleteType').modal('show');
+        }
+    });
+}
+types.reset = function () {
+    $('#TypeName').val(null);
+    $('#TypeID').val(0);
+    $('#editPoster').attr("src", null);
 
-
-type.add = function () {
+}
+types.add = function () {
 
     let typeObj = {};
-    typeObj.typeID = $('#typeID').val();
-    typeObj.typeName = $('#typeName').val();
+
+    typeObj.typeName = $('#TypeName').val();
+    typeObj.poster = $('#Poster').attr('src');
     $.ajax({
         url: '/Type/Add',
         method: "POST",
@@ -85,17 +157,17 @@ type.add = function () {
         contentType: "application/JSON",
         data: JSON.stringify(typeObj),
         success: function (data) {
-            type.drawTable();
-            $('#addtype').modal('hide');
+            types.drawTable();
+            $('#addType').modal('hide');
             bootbox.alert(data.result.message);
         }
     })
 };
-type.edit = function () {
+types.edit = function () {
     var saveObj = {};
-    saveObj.typeName = $('#typeName').val();
-    saveObj.typeID = parseInt($('#typeID').val());     
-        debugger;
+    saveObj.typeName = $('#TypeNameEdit').val();
+    saveObj.typeID = parseInt($('#TypeIDEdit').val());
+    saveObj.Poster = $('#editPoster').attr('src');
     $.ajax({
         url: `/Type/Edit/`,
         method: "POST",
@@ -103,24 +175,18 @@ type.edit = function () {
         contentType: "application/json",
         data: JSON.stringify(saveObj),
         success: function (data) {
-            bootbox.alert({
-                message: data.result.message,
-                callback: function () {
-                    window.location.href ='/Type/Type';
-                },
-                closeButton: false
-            })
-
+            types.drawTable();
+            $('#editType').modal('hide');
+            bootbox.alert(data.result.message);
+     
         }
-    
     });
 }
-
-Type.init = function () {
-    Type.drawTable();
+types.init = function () {
+    types.drawTable();
     
 };
 
 $(document).ready(function () {
-    Type.init();
+    types.init();
 });

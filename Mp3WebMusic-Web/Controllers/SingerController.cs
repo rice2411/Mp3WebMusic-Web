@@ -26,7 +26,7 @@ namespace Mp3WebMusic_Web.Controllers
 
             return View("~/Views/Dashboard/Singer/SingerIsDelete.cshtml");
         }
-        [Route("Singer/GetsSingerIsNotDelete")]
+        [Route("/Singer/GetsSingerIsNotDelete")]
         public JsonResult GetsSingerIsNotDelete()
         {
             var singers = new List<Singer>();
