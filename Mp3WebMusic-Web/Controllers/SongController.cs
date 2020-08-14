@@ -65,6 +65,15 @@ namespace Mp3WebMusic_Web.Controllers
             return Json(new { result });
       
         }
+        [Route("/Song/GetsSongBySinger/{id}")]
+        public JsonResult GetsSongBySinger(int id)
+        {
+
+            var result = new List<Song>();
+            result = ApiHelper<List<Song>>.HttpGetAsync($"{Helper.ApiUrl}Api/Song/GetsSongBySinger/{id}");
+            return Json(new { result });
+
+        }
         [Route("/Song/Edit")]
         public JsonResult EditSong([FromBody] Song model)
         {
