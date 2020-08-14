@@ -2,7 +2,7 @@
 - Dự án web nghe nhạc trực Tuyến
 - Mô phỏng trang zing mp3
 ## Công nghệ
-- ASP NET CORE 3.1
+- ASP .NET CORE 3.1
 - MS SQL SERVER 2019
 - BOOTSTRAP 4 HTML JAVASCRIPT
 ## Thành Viên
