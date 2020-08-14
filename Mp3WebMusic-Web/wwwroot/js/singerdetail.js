@@ -53,7 +53,7 @@ singer.drawTable = function () {
         dataType: "json",
         success: function (data) {
           
-            $.each(data.singers, function (i, v) {
+            $.each(data.result, function (i, v) {
 
                 $('#list').append(
                     `
