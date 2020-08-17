@@ -13,7 +13,7 @@ singer.drawTable = function () {
       
                 $('#contentsearch').append(
                     `<div class='col-3'>
-               <div class="card text-center my-4 text-light"style="background-color: 	#220d38 !important; height: 400px" >
+               <div class="card text-center my-4 text-light"style="background-color:#220d38 !important; height: 400px;border-radius: 3%">
                     <img class="card-img-top" src="${v.avatar}" alt="Card image" style=' width: 10vw;   height: 10vw; object-fit: cover; border-radius: 50%; margin-left: 21%; margin-top: 20%'>
                     <div class="card-body">
                       <h4  style="font-size: 15px;">${v.singerNickName}</h4>
