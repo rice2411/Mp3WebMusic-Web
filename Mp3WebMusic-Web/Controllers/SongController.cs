@@ -1,13 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Mp3WebMusic_Web.Models;
 using Mp3WebMusic_Web.Models.Song;
 using Mp3WebMusic_Web.Ultilities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Mp3WebMusic_Web.Controllers
 {
     public class SongController: Controller
     {
+        private IWebHostEnvironment webHostEnvironment;
+        public SongController(IWebHostEnvironment webHostEnvironment)
+        {
+            this.webHostEnvironment = webHostEnvironment;
+        }
         public ViewResult Detail(int id)
         {
             var song = new Song()
@@ -47,7 +55,14 @@ namespace Mp3WebMusic_Web.Controllers
            
             return Json(new { result }); ;
         }
+        [Route("/Song/GetsSongByUpLoaddayTop4")]
+        public JsonResult GetsSongByUpLoaddayTop4()
+        {
+            var result = new List<Song>();
+            result = ApiHelper<List<Song>>.HttpGetAsync($"{Helper.ApiUrl}Api/Song/GetsSongByUpLoaddayTop4");
 
+            return Json(new { result }); ;
+        }
         [Route("/Song/GetsSongIsDelete")]
         public JsonResult GetsSongIsDelete()
         {
@@ -74,9 +89,20 @@ namespace Mp3WebMusic_Web.Controllers
             return Json(new { result });
 
         }
+        [Route("/Song/GetsSongByAuthor/{id}")]
+        public JsonResult GetsSongByAuthor(int id)
+        {
+
+            var result = new List<Song>();
+            result = ApiHelper<List<Song>>.HttpGetAsync($"{Helper.ApiUrl}Api/Song/GetsSongByAuthor/{id}");
+            return Json(new { result });
+
+        }
+   
         [Route("/Song/Edit")]
         public JsonResult EditSong([FromBody] Song model)
         {
+           
             var result = new Messages();
             result = ApiHelper<Messages>.HttpPostAsync($"{Helper.ApiUrl}Api/Song/EditSong", model);
             return Json(new { result });
@@ -101,6 +127,7 @@ namespace Mp3WebMusic_Web.Controllers
         [Route("/Song/Add")]
         public JsonResult AddSong([FromBody] Song model)
         {
+          
             var result = new Messages();
             result = ApiHelper<Messages>.HttpPostAsync($"{Helper.ApiUrl}Api/Song/AddSong", model);
             return Json(new { result });

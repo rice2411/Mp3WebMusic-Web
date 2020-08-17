@@ -18,7 +18,7 @@ author.drawTable = function () {
                     <div class="card-body">
                       <h4  style="font-size: 15px;">${v.authorName}</h4>
                       <p class="card-text" style='color: gray'>${v.views} lượt xem</p>
-                      <a href="#" class="btn btn-custom">See Profile</a>
+                     <a href="/Author/Detail/${v.authorID}" class="btn btn-custom">See Profile</a>
                     </div>
                   </div>
                 </div>

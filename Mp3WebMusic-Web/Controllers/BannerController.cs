@@ -57,13 +57,32 @@ namespace Mp3WebMusic_Web.Controllers
                                                 );
             return Json(new { banner });
         }
+        [Route("/Banner/GetIsNotDelete")]
+        public JsonResult GetIsNotDelete()
+        {
+            var banner = new List<Banners>();
+            banner = ApiHelper<List<Banners>>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Banner/GetsIsNotDelete"
+                                                );
+            return Json(new { banner });
+        }
         [Route("/Banner/Delete/{id}")]
         public JsonResult Delete(int id)
         {
             var banner = new Banners();
             banner = ApiHelper<Banners>.HttpGetAsync(
-                                                    $"{Helper.ApiUrl}Api/Banner/DeleteBanner/{id}","DELETE"
+                                                    $"{Helper.ApiUrl}Api/Banner/DeleteBanner/{id}","post"
                                                  
+                                                );
+            return Json(new { banner });
+        }
+        [Route("/Banner/Restore/{id}")]
+        public JsonResult Restore(int id)
+        {
+            var banner = new Banners();
+            banner = ApiHelper<Banners>.HttpGetAsync(
+                                                    $"{Helper.ApiUrl}Api/Banner/RestoreBanner/{id}", "post"
+
                                                 );
             return Json(new { banner });
         }

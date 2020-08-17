@@ -37,6 +37,14 @@ namespace Mp3WebMusic_Web.Controllers
             var json = Json(new { singers });
             return json;
         }
+        [Route("/Singer/GetsSingerTop4")]
+        public JsonResult GetsSingerTop4()
+        {
+            var singers = new List<Singer>();
+            singers = ApiHelper<List<Singer>>.HttpGetAsync($"{Helper.ApiUrl}Api/Singer/GetsSingerTop4");
+            var json = Json(new { singers });
+            return json;
+        }
         [Route("/Singer/GetsSingerIsDelete")]
         public JsonResult GetsSingerIsDelete()
         {

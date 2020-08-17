@@ -10,19 +10,20 @@ namespace Mp3WebMusic_Web.Controllers
 {
     public class AuthorController : Controller
     {
-        public ViewResult Search()
-        {
-
-            return View("~/Views/Home/AuthorList.cshtml");
-        }
-        public ViewResult AuthorDetail(int id)
+           public ViewResult Detail(int id)
         {
             var author = new Author()
             {
                 AuthorID = id
             };
-            return View("~/Views/Dashboard/Author/AuthorDetail.cshtml", author);
+            return View("~/Views/Home/AuthorDetail.cshtml",author);
         }
+        public ViewResult Search()
+        {
+
+            return View("~/Views/Home/AuthorList.cshtml");
+        }
+       
         public ViewResult Author()
         {
 

@@ -12,6 +12,10 @@ topic.drawTable = function () {
                 $('#songTopic').append(
                     ` <option value="${v.topicID}" >${v.topicName}</option>`
                 );
+
+                $('#editSongTopic').append(
+                    ` <option value="${v.topicID}" >${v.topicName}</option>`
+                );
             });        
         }
     });

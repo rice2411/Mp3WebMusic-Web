@@ -2,11 +2,11 @@ var banner = {} || banner;
 
 banner.drawTable = function () {
     $.ajax({
-        url: "/Banner/BannerGets",
+        url: "/Banner/GetIsNotDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
-   
+     
             $.each(data.banner, function (i, v) {
                 $('#bannerpage').append(
                     `<div class="carousel-item">
@@ -28,22 +28,59 @@ banner.drawTableAdmin = function () {
         success: function (data) {
 
             $.each(data.banner, function (i, v) {
+                var check = v.isDelete == true ? "checked" : "";
                 $('#tbtype').append(
                     `<tr>
                            <td><img src='${v.banner}' style='border-radius: 0; height: 100%; width: 100%'/></td>
-                      
+                     <td> <input type="checkbox" id='songstatus${v.bannerID}' ${check}  onclick="ChangeStatus(${v.bannerID});"></td>
                         <td>
                             <a href="javascript:;" onclick="banner.get(${v.bannerID})" class="btn btn-success">Edit</a> 
-                        <a href="javascript:;" onclick="banner.gettodelete(${v.bannerID})" class="btn btn-danger">Delete</a> 
+          
                         </td>
                     </tr>
                        `
                 );
             });
-          
+            $("#mytable").dataTable({
+                destroy: true,
+
+                "columnDefs": [
+                    {
+                        "targets": 1,
+                        "orderDataType": "dom-checkbox"
+                    }]
+            });
         }
     });
 };
+function ChangeStatus(id) {
+    if (document.getElementById(`songstatus${id}`).checked) {
+        $.ajax({
+            url: `/Banner/Delete/${id}`,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                bootbox.alert(data.banner.message);
+                banner.drawTable();
+            }
+        });
+    } else {
+        $.ajax({
+            url: `/Banner/Restore/${id}`,
+            method: "POST",
+            dataType: "json",
+
+
+            success: function (data) {
+                $('#restoreSinger').modal('hide');
+                bootbox.alert(data.banner.message);
+                bannner.drawTable();
+            }
+
+        });
+
+    }
+}
 banner.openAddBanner = function () {
     banner.reset();
     $('#addBanner').modal('show');
@@ -57,19 +94,32 @@ banner.reset = function () {
 banner.add = function () {
 
     let typeObj = {};
-    typeObj.banner = $('#Poster').attr('src');
-    $.ajax({
-        url: '/Banner/Add',
-        method: "POST",
-        dataType: "JSON",
-        contentType: "application/JSON",
-        data: JSON.stringify(typeObj),
-        success: function (data) {
-            banner.drawTableAdmin();
-            $('#addBanner').modal('hide');
-            bootbox.alert(data.banner.message);
-        }
-    })
+    if ($('#Poster').attr('src') != "") {
+        typeObj.banner = $('#Poster').attr('src');
+        $.ajax({
+            url: '/Banner/Add',
+            method: "POST",
+            dataType: "JSON",
+            contentType: "application/JSON",
+            data: JSON.stringify(typeObj),
+            success: function (data) {
+                banner.drawTableAdmin();
+                $('#addBanner').modal('hide');
+                bootbox.alert(data.banner.message);
+            }
+        })
+    } else {
+        $('#addBanner').modal('hide');
+        bootbox.alert({
+            message: "Add Failed",
+            closeButton: false,
+            callback: function () {
+                $('#addBanner').modal('show')
+
+            }
+        })
+    }
+  
 };
 banner.get = function (id) {
     $.ajax({
@@ -86,22 +136,33 @@ banner.get = function (id) {
 }
 banner.edit = function () {
     var saveObj = {};
+    if ($('#Poster').attr('src') != "") {
+        saveObj.bannerID = parseInt($('#TypeIDEdit').val());
+        saveObj.banner = $('#editPoster').attr('src');
+        $.ajax({
+            url: `/Banner/Edit/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                banner.drawTable();
+                $('#editBanner').modal('hide');
+                bootbox.alert(data.banner.message);
 
-    saveObj.bannerID = parseInt($('#TypeIDEdit').val());
-    saveObj.banner = $('#editPoster').attr('src');
-    $.ajax({
-        url: `/Banner/Edit/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            banner.drawTable();
-            $('#editBanner').modal('hide');
-            bootbox.alert(data.banner.message);
+            }
+        });
+    } else {
+        $('#editBanner').modal('hide');
+        bootbox.alert({
+            message: "Add Failed",
+            closeButton: false,
+            callback: function () {
+                $('#editBanner').modal('show')
 
-        }
-    });
+            }
+        })
+    }
 }
 banner.uploadPoster = function (input) {
     if (input.files && input.files[0]) {
@@ -121,24 +182,14 @@ banner.editPoster = function (input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-banner.gettodelete = function (id) {
-    $.ajax({
-        url: `/Banner/Get/${id}`,
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            $('#TypeID').val(data.banner.bannerID);
-            $('#deleteBanner').modal('show');
-        }
-    });
-}
+
 banner.delete = function () {
     var saveObj = {};
 
     saveObj.bannerID = parseInt($('#TypeID').val());
     $.ajax({
         url: `/Banner/Delete/${saveObj.bannerID}`,
-        method: "DELETE",
+        method: "POST",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(saveObj),

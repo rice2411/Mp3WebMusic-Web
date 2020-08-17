@@ -2,7 +2,7 @@
 
     // Get current page URL
     var url = window.location.pathname;
-
+ 
     // remove # from URL
  
 
@@ -26,6 +26,7 @@
     });
 
 });
+
 var yOffset = $("#scrollwithpage").offset().top;
 $(window).scroll(function () {
     if ($(window).scrollTop() < yOffset) {
@@ -42,3 +43,26 @@ $(window).scroll(function () {
     } 
 
 });
+$(function () {
+    $('#audio-player').mediaelementplayer({
+        alwaysShowControls: true,
+        features: ['playpause', 'progress', 'volume'],
+        audioVolume: 'horizontal',
+        audioWidth: 450,
+        audioHeight: 70,
+        iPadUseNativeControls: true,
+        iPhoneUseNativeControls: true,
+        AndroidUseNativeControls: true
+    });
+});
+/*$(document).on({
+    ajaxStart: function () {
+        $(".loader").show();
+    },
+    ajaxStop: function () {
+        $(".loader").hide();
+    },
+    ajaxError: function () {
+        $(".loader").hide();
+    }
+});*/

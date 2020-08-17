@@ -3,11 +3,12 @@
 }
 <link rel="stylesheet" href="~/css/resize.css" />
 <link rel="stylesheet" href="~/css/musicard.css" />
-<h3 class="text-light">Trending</h3>
+<h2 class="text-light">Trending</h2>
+<hr style="border-color: #22142e" />
 <div class="row my-2 ">
     <div class="col-7 ">
         <div class="card" style="background-color:#372552">
-            <canvas id="weekly-clicks-chart" width="400" height="240"></canvas>
+            <canvas id="weekly-clicks-chart" width="400" height="250"></canvas>
         </div>
     </div>
     <div class="col-5">
@@ -16,163 +17,31 @@
 
     </div>
 </div>
-<h3 class="text-light">Top 100</h3>
-<div class="row text-center">
-    <div class="col-3">
-        <img src="~/images/vpop.jpg" class="image zoom" style="height: 95%; width: 100%;   border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc V-Pop Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/rap.jpg" class="image zoom" style="height: 95%; width: 100% ; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Rap Việt Nam Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/nhactre.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Trẻ Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/my.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" ; />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Au Mỹ Hay Nhất</h3>
-    </div>
-</div>
-<h3 class="text-light">Kpop</h3>
-<div class="row text-center">
-    <div class="col-3">
-        <img src="~/images/kpop1.jpg" class="image zoom" style="height: 95%; width: 100%;   border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc V-Pop Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/kpop2.jpg" class="image zoom" style="height: 95%; width: 100% ; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Rap Việt Nam Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/kpop3.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Trẻ Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/kpop4.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" ; />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Au Mỹ Hay Nhất</h3>
-    </div>
-</div>
-<h3 class="text-light">Bolero</h3>
-<div class="row text-center">
-    <div class="col-3">
-        <img src="~/images/blr1.jpg" class="image zoom" style="height: 95%; width: 100%;   border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc V-Pop Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/blr2.jpg" class="image zoom" style="height: 95%; width: 100% ; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Rap Việt Nam Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/blr3.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Trẻ Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/blr4.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" ; />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Au Mỹ Hay Nhất</h3>
-    </div>
-</div>
-<h3 class="text-light">Bolero</h3>
-<div class="row text-center">
-    <div class="col-3">
-        <img src="~/images/vpop1.jpg" class="image zoom" style="height: 95%; width: 100%;   border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc V-Pop Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/vpop2.jpg" class="image zoom" style="height: 95%; width: 100% ; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Rap Việt Nam Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/vpop3.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Trẻ Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/vpop4.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" ; />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Au Mỹ Hay Nhất</h3>
-    </div>
-</div>
-<h3 class="text-light">Âu Mỹ</h3>
-<div class="row text-center">
-    <div class="col-3">
-        <img src="~/images/2.jpg" class="image zoom" style="height: 95%; width: 100%;   border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc V-Pop Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/3.jpg" class="image zoom" style="height: 95%; width: 100% ; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Rap Việt Nam Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/4.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Nhạc Trẻ Hay Nhất</h3>
-    </div>
-    <div class="col-3">
-        <img src="~/images/5.jpg" class="image zoom" style="height: 95%; width: 100%; border-radius: 3%;" ; />
-        <div class="middle">
-            <div class="text"><a asp-controller="Home" asp-action="Index"><i class="fal fa-play-circle"></i></a></div>
-        </div>
-        <h3 style="font-size: 14px; color:white">Top 100 Au Mỹ Hay Nhất</h3>
-    </div>
-</div>
+<br />
+<h2 class="text-light">Bài Hát Mới Nhất</h2>
+<hr style="border-color: #22142e" />
+<div class="row" id="newsong">
 
 
+</div>
+<br />
+<br />
+<h2 class="text-light">Ca Sĩ Nổi Bật </h2>
+<hr style="border-color: #22142e" />
+<div class="row" id="hightlightSinger">
+
+
+</div>
+<br />
+<br />
+<h2 class="text-light"><a asp-controller="Topic" asp-action="Search" style="color: white; text-decoration: none"> Chủ Đề</a></h2>
+<hr style="border-color: #22142e" />
+<div class="row" id="topTopic">
+
+
+</div>
+<br />
+<br />
 @section Scripts {
     <script src="~/js/home.js"></script>
     <script>

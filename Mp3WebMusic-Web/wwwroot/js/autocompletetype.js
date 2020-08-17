@@ -12,6 +12,9 @@ types.drawTable = function () {
                 $('#songType').append(
                     ` <option value="${v.typeID}" >${v.typeName}</option>`
                 );
+                $('#editSongType').append(
+                    ` <option value="${v.typeID}" >${v.typeName}</option>`
+                );
             });
             
         }

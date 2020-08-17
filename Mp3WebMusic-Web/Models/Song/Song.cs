@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,5 +18,6 @@ namespace Mp3WebMusic_Web.Models.Song
         public string AuthorName { get; set; }
         public float Views { get; set; }
         public bool isDelete { get; set; }
+     
     }
 }

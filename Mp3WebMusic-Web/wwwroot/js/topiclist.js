@@ -29,8 +29,8 @@ topic.drawTable = function () {
 
 };
 
-function Select(prm) {
-    window.location.href = '/Topic/Topic';
+function Select(id) {
+    window.location.href = '/Topic/Detail/' + id;
 }
 
 

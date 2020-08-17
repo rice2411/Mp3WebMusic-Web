@@ -137,3 +137,4 @@ function autocomplete1(inp, arr, arr2) {
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete1(document.getElementById("songAuthor"), songss, songssid);
 
+autocomplete1(document.getElementById("editSongAuthor"), songss, songssid);

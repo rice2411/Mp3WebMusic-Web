@@ -19,8 +19,8 @@ song.drawTable = function () {
                         <td>${v.views}</td>
                         <td><input type="checkbox" id='songstatus${v.songID}' ${check}  onclick="ChangeStatus(${v.songID});"></td>
                         <td>
-                            <a class="btn btn-success"
-                                     href="/Song/Detail/${v.songID}">Detail</a> 
+                            <a href="javascripts:;" class="btn btn-success"
+                                    onclick="song.get(${v.songID})">Detail</a> 
                         
                         </td>
                     </tr>`
@@ -42,6 +42,63 @@ song.openAddsong = function () {
 
     $('#addSong').appendTo("body").modal('show');
 };
+song.get = function (id) {
+    $.ajax({
+        url: `/Song/GetSongById/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#SongID').val(data.result.songID);
+            $('#editSong').appendTo("body").modal('show');
+            $('#editSongName').val(data.result.songName);
+            $('#editSongPoster').attr('src', data.result.poster);
+            $('#editSongSinger').val(data.result.singerNickName);
+            $('#editSongAuthor').val(data.result.authorName);
+            $('#editSongAudio').attr('src', data.result.audio);
+            $('#editSongTopic').val(data.result.topicID)
+            $('#editSongType').val(data.result.typeID)
+
+        
+
+        }
+    });
+}
+song.edit = function () {
+    var saveObj = {};
+    if ($('#editSongName').val() != "" && $('#editSongType').val() != "" && $('#editSongTopic').val() != "" && $('#editSongSinger').val() != "" && $('#editSongAuthor').val() != "" && $('#editSongAudio').attr('src') != "") {
+        saveObj.songName = $('#editSongName').val();
+        saveObj.songID = parseInt($('#SongID').val());
+        saveObj.typeID = parseInt($('#editSongType').val());
+        saveObj.topicID = parseInt($('#editSongTopic').val());
+        saveObj.singerNickName = $('#editSongSinger').val();
+        saveObj.authorName = $('#editSongAuthor').val();
+        saveObj.poster = $('#editSongPoster').attr('src');
+        saveObj.audio = $('#editSongAudio').attr('src');
+    
+        $.ajax({
+            url: `/Song/Edit`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                bootbox.alert(data.result.message)
+                $('#editSong').appendTo("body").modal('hide');
+            }
+
+        });
+    } else {
+        $('#editSong').modal('hide');
+        bootbox.alert({
+            message: "Add Failed",
+            closeButton: false,
+            callback: function () {
+                $('#editSong').modal('show')
+
+            }
+        })
+    }
+}
 function ChangeStatus(id) {
     if (document.getElementById(`songstatus${id}`).checked) {
         $.ajax({
@@ -61,7 +118,7 @@ function ChangeStatus(id) {
             
      
             success: function (data) {
-                $('#restoreSinger').modal('hide');
+            
                 bootbox.alert(data.result.message);
                 song.drawTable();
             }
@@ -93,8 +150,9 @@ song.delete = function (id) {
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
-                        bootbox.alert(data.result.message);
                         song.drawTable();
+                        bootbox.alert(data.result.message);
+                       
                     }
                 });
             }
@@ -123,35 +181,69 @@ song.uploadAudio = function (input) {
 };
 
 
+song.editImage = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#editSongPoster').attr('src', e.target.result);
+
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+};
+song.editAudio = function (input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#editSongAudio').attr('src', e.target.result);
+
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+};
 
 song.add = function () {
 
     var saveObj = {};
-    saveObj.songName = $('#songName').val();
+    if ($('#songName').val() != "" && $('#songType').val() != "" && $('#songTopic').val() != "" && $('#songSinger').val() != "" && $('#songAuthor').val() != "" && $('#songAudio').attr('src')!="" ) {
+        saveObj.songName = $('#songName').val().trim();
+        saveObj.typeID = parseInt($('#songType').val());
+        saveObj.topicID = parseInt($('#songTopic').val());
+        saveObj.singerNickName = $('#songSinger').val();
+        saveObj.authorName = $('#songAuthor').val();
+        saveObj.poster = $('#songPoster').attr('src');
+        saveObj.audio = $('#songAudio').attr('src');
 
-    saveObj.typeID = parseInt($('#songType').val());
-    saveObj.topicID = parseInt($('#songTopic').val());
-    saveObj.singerNickName = $('#songSinger').val();
-    saveObj.authorName = $('#songAuthor').val();
-    saveObj.poster = $('#songPoster').attr('src');
-    saveObj.audio = $('#songAudio').attr('src');
-    debugger;
-    $.ajax({
-        url: `/Song/Add/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            bootbox.alert({
-                message: data.result.message
-           
-            })
-            $('#addSong').modal('hide');
-            song.drawTable();
-        }
+        $.ajax({
+            url: `/Song/Add/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                song.drawTable();
+                bootbox.alert({
+                    message: data.result.message
 
-    });
+                })
+                $('#addSong').modal('hide');
+          
+            },
+          
+
+
+        });
+    } else {
+        $('#addSong').modal('hide');
+        bootbox.alert({
+            message: "Add Failed",
+            closeButton: false,
+            callback: function () {
+                $('#addSong').modal('show')
+                 
+            }
+        })
+    }
 };
 
 song.init = function () {
@@ -161,4 +253,5 @@ song.init = function () {
 
 $(document).ready(function () {
     song.init();
+  
 });

@@ -51,7 +51,7 @@ body .player, html .player, a .player {
 
         body .player .description .title, html .player .description .title {
             color: white;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 100;
            
         }

@@ -7,6 +7,14 @@ namespace Mp3WebMusic_Web.Controllers
 {
     public class TopicController: Controller
     {
+        public ViewResult Detail(int id)
+        {
+            var topic = new Topic()
+            {
+                TopicID = id
+            };
+            return View("~/Views/Home/TopicDetail.cshtml",topic);
+        }
         public ViewResult Search()
         {
 
@@ -35,6 +43,14 @@ namespace Mp3WebMusic_Web.Controllers
         {
             var topics = new List<Topic>();
             topics = ApiHelper<List<Topic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicIsDelete");
+            var json = Json(new { topics });
+            return json;
+        }
+        [Route("/Topic/GetsTopicTop4")]
+        public JsonResult GetsTopicTop4()
+        {
+            var topics = new List<Topic>();
+            topics = ApiHelper<List<Topic>>.HttpGetAsync($"{Helper.ApiUrl}Api/Topic/GetsTopicTop4");
             var json = Json(new { topics });
             return json;
         }

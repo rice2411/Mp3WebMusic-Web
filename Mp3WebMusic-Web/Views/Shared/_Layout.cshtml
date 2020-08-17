@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Mp3WebMusic_Web</title>
 
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-
+    <link href="~/css/listen.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -25,7 +26,7 @@
             color: yellow;
         }
     </style>
-
+    <div class="loader"></div>
     <nav class="navbar navbar-expand-md navbar-light flex-row" style="background-color:#0f011a ">
         <div class="container">
             <a class="navbar-brand text-uppercase text-light" href="#"><img src="~/images/icon_zing_mp3_60.png" /></a>
@@ -80,14 +81,9 @@
     </nav>
 
     <div class="container">
-        <div id="demo" class="carousel slide" data-ride="carousel">
+        <div id="demo" class="carousel slide" data-ride="carousel" data-interval="3000">
 
-            <!-- Indicators -->
-            <ul class="carousel-indicators">
-                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
-            </ul>
+
 
             <!-- The slideshow -->
             <div class="carousel-inner" id="bannerpage">
@@ -102,6 +98,7 @@
                     </div>*@
             </div>
 
+
             <!-- Left and right controls -->
             <a class="carousel-control-prev" href="#demo" data-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
@@ -112,27 +109,62 @@
 
         </div>
     </div>
-
+    <br />
     <div class="container">
-        <br />
-        @RenderBody()
 
+        @RenderBody()
+        <hr style="border-color: #22142e" />
+    </div>
+    <div class="listen" id="miniplayer">
+        <div class="customplayer" style="background-color: #2c1450">
+
+            <div class="audio-player">
+                <img src="" id="songposter" style="width: 70px; height: 70px; margin-left: -90px!important;" />
+                <div id="info">
+                    <h2 id="songname" style="display:inline-flex"> </h2>
+
+
+                </div>
+                <audio id="audio-player" src="~/audio/bui.mp3" autoplay></audio>
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="page-footer font-small unique-color-dark pt-4">
+
+        <!-- Footer Elements -->
         <div class="container">
-            &copy; 2020 - Mp3WebMusic_Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+            <!-- Call to action -->
+            <ul class="list-unstyled list-inline text-center py-2">
+                <li class="list-inline-item">
+                    <img src="~/images/footer.jpg" style="width: 50px; height: 50px" />
+                </li>
+                <li class="list-inline-item">
+                    <h4 style="font-size: 15px; color:gray">Một sản phẩm của...</h4>
+                </li>
+            </ul>
+            <!-- Call to action -->
+
         </div>
+        <!-- Footer Elements -->
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3" style=" color:gray ">
+            © 2020 Copyright: Minh-Ghi-Tín
+
+        </div>
+        <!-- Copyright -->
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/mediaelement-and-player.min.js"></script>
     <script src="~/js/FApro.js"></script>
     <script src="~/js/list.js"></script>
     <script src="~/js/banner.js"></script>
- 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

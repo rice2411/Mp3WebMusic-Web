@@ -17,8 +17,8 @@ singer.drawTable = function () {
                         <td>${v.singerID}</td>
                         <td>${v.singerName}</td>
                         <td>${v.singerNickName}</td> 
-                        <td>${v.view}</td>
-                        <td>${v.introduce}</td>
+                        <td>${v.views}</td>
+                       
                         <td><img src='${v.avatar}' width='80' height='90'/></td>
                         <td><input type="checkbox" id='songstatus${v.singerID}' ${check}  onclick="ChangeStatus(${v.singerID});"></td>
                         <td>
@@ -34,7 +34,7 @@ singer.drawTable = function () {
              
                 "columnDefs": [
                     {
-                        "targets": 6,
+                        "targets": 5,
                         "orderDataType": "dom-checkbox"
                     }]
             });
@@ -135,44 +135,69 @@ singer.reset = function () {
 
 singer.add = function () {
     var saveObj = {};
-    saveObj.singerName = $('#SingerName').val();
+    if ($('#SingerName').val() != "" && $('#SingerNickName').val() != "" && $('#Introduce').val() != "" && $('#Avatar').attr('src') != "") {
+        saveObj.singerName = $('#SingerName').val().trim();
+        saveObj.singerNickName = $('#SingerNickName').val().trim();
+        saveObj.introduce = $('#Introduce').val().trim();
+        saveObj.avatar = $('#Avatar').attr('src');
+        $.ajax({
+            url: `/Singer/Add`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                $('#addSinger').modal('hide');
+                bootbox.alert(data.result.message);
+                singer.drawTable();
+            }
+        });
+    }
+    else {
+        $('#addSinger').modal('hide');
+        bootbox.alert({
+            message: "Add Failed",
+            closeButton: false,
+            callback: function () {
+                $('#addSinger').modal('show')
 
-    saveObj.singerNickName = $('#SingerNickName').val();
-    saveObj.introduce = $('#Introduce').val();
-    saveObj.avatar = $('#Avatar').attr('src');
-    $.ajax({
-        url: `/Singer/Add`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            $('#addSinger').modal('hide');
-            bootbox.alert(data.result.message);
-            singer.drawTable();
-        }
-    });
+            }
+        })
+    }
 }
 
 singer.edit = function () {
     var saveObj = {};
-    saveObj.SingerName = $('#editSingerName').val();
-    saveObj.SingerID = parseInt($('#editSingerID').val());
-    saveObj.SingerNickName = $('#editSingerNickName').val();
-    saveObj.Introduce = $('#editIntroduce').val();
-    saveObj.Avatar = $('#editAvatar').attr('src');
-    $.ajax({
-        url: `/Singer/Edit/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            $('#editSinger').modal('hide');
-            bootbox.alert(data.result.message);
-            singer.drawTable();
-        }
-    });
+    if ($('#editSingerName').val() != "" && $('#editSingerNickName').val() != "" && $('#editIntroduce').val() != "" && $('#editAvatar').attr('src') != "") {
+        saveObj.SingerName = $('#editSingerName').val();
+        saveObj.SingerID = parseInt($('#editSingerID').val());
+        saveObj.SingerNickName = $('#editSingerNickName').val();
+        saveObj.Introduce = $('#editIntroduce').val();
+        saveObj.Avatar = $('#editAvatar').attr('src');
+        $.ajax({
+            url: `/Singer/Edit/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                $('#editSinger').modal('hide');
+                bootbox.alert(data.result.message);
+                singer.drawTable();
+            }
+        });
+    } else {
+        $('#editSinger').modal('hide');
+        bootbox.alert({
+            message: "Add Failed",
+            closeButton: false,
+            callback: function () {
+                $('#editSinger').modal('show')
+
+            }
+        })
+
+    }
 }
 singer.delete = function () {
     var saveObj = {};
