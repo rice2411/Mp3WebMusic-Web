@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-@model Topic
+@model Types
     <link rel="stylesheet" href="~/css/resize.css" />
     <link rel="stylesheet" href="~/css/musicard.css" />
     <style>
@@ -10,7 +10,7 @@
         }
     </style>
 
-        <input hidden asp-for="TopicID" id="topcid" />
+        <input hidden asp-for="TypeID" id="typeid" />
 
 
 
@@ -18,13 +18,13 @@
         <div >
             <h2 class="text-light">Bài Hát: </h2>
             <hr style="border-color: #22142e" />
-            <ul class="list-group" id="listtopic">
+            <ul class="list-group" id="listtype">
             </ul>
         </div>
 
 
     
     @section Scripts{
-        <script src="~/js/topicdetail.js" asp-append-version="true"></script>
+        <script src="~/js/typedetail.js" asp-append-version="true"></script>
 
     }

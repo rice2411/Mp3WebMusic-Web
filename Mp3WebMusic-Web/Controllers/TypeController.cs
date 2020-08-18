@@ -16,13 +16,13 @@ namespace Mp3WebMusic_Web.Controllers
 
             return View("~/Views/Home/TypeList.cshtml");
         }
-        public ViewResult TypeDetail(int id)
+        public ViewResult Detail(int id)
         {
             var type = new Types()
             {
                 TypeID = id
             };
-            return View("~/Views/Dashboard/Type/TypeDetail.cshtml", type);
+            return View("~/Views/Home/TypeDetail.cshtml", type);
         }
         public ViewResult Type()
         {

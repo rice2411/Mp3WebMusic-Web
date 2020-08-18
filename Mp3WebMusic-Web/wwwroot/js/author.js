@@ -11,7 +11,7 @@ author.drawTable = function () {
                 var check = v.isDelete == true ? "checked" : "";
                 $('#tbauthor').append(
                     `<tr>
-                        <td>${v.authorID}</td>
+                       
                         <td>${v.authorName}</td>
                               <td><img src='${v.avatar}' width='80' height='90'/></td>
                           <td><input type="checkbox" id='songstatus${v.authorID}' ${check}  onclick="ChangeStatus(${v.authorID});"></td>
@@ -26,7 +26,7 @@ author.drawTable = function () {
                 destroy: true,
                 "columnDefs": [
                     {
-                        "targets": 3,
+                        "targets": 2,
                         "orderDataType": "dom-checkbox"
                     }
                 ]
@@ -128,45 +128,48 @@ author.reset = function () {
 }
 
 author.add = function () {
-    var saveObj = {};
-    saveObj.authorName = $('#AuthorName').val();
 
-
-    saveObj.Introduce = $('#Introduce').val();
-    saveObj.Avatar = $('#Avatar').attr('src');
-    $.ajax({
-        url: `/Author/Add/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            $('#addAuthor').modal('hide');
-            bootbox.alert(data.result.message);
-            author.drawTable();
-        }
-    });
+    if ($('#addAuthorForm').valid()) {
+        var saveObj = {};   
+        saveObj.authorName = $('#AuthorName').val();
+        saveObj.Introduce = $('#Introduce').val();
+        saveObj.Avatar = $('#Avatar').attr('src');
+        $.ajax({
+            url: `/Author/Add/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                $('#addAuthor').modal('hide');
+                bootbox.alert(data.result.message);
+                author.drawTable();
+            }
+        });
+    }
 }
 
 author.edit = function () {
-    var saveObj = {};
-    saveObj.authorName = $('#editAuthorName').val();
-    saveObj.authorID = parseInt($('#editAuthorID').val());
+    if ($('#editAuthorForm').valid()) {
+        var saveObj = {};
+        saveObj.authorName = $('#editAuthorName').val();
+        saveObj.authorID = parseInt($('#editAuthorID').val());
 
-    saveObj.introduce = $('#editIntroduce').val();
-    saveObj.avatar = $('#editAvatar').attr('src');
-    $.ajax({
-        url: `/Author/Edit/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            $('#editAuthor').modal('hide');
-            bootbox.alert(data.result.message);
-            author.drawTable();
-        }
-    });
+        saveObj.introduce = $('#editIntroduce').val();
+        saveObj.avatar = $('#editAvatar').attr('src');
+        $.ajax({
+            url: `/Author/Edit/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                $('#editAuthor').modal('hide');
+                bootbox.alert(data.result.message);
+                author.drawTable();
+            }
+        });
+    }
 }
 author.delete = function () {
     var saveObj = {};
@@ -197,4 +200,26 @@ author.init = function () {
 
 $(document).ready(function () {
     author.init();
+    $("#addAuthorForm").validate({
+        rules: {
+            AuthorName: "required",
+            Introduce: "required"
+
+        },
+        messages: {
+            AuthorName: "This field is required",
+            Introduce: "This field is required"
+        }
+    });
+    $("#editAuthorForm").validate({
+        rules: {
+            editAuthorName: "required",
+            ediitIntroduce: "required"
+
+        },
+        messages: {
+            editAuthorName: "This field is required",
+            editIntroduce: "This field is required"
+        }
+    });
 });

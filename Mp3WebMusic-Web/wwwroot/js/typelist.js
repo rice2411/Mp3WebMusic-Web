@@ -30,7 +30,7 @@ types.drawTable = function () {
 };
 
 function Select(prm) {
-    window.location.href = '/Topic/Topic';
+    window.location.href = '/Type/Detail/' +prm;
 }
 
 

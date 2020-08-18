@@ -56,7 +56,8 @@ singer.drawTable = function () {
             $.each(data.result, function (i, v) {
 
                 $('#list').append(
-                    `  <h2 class="text-light">Bài Hát: </h2>
+                    `  
+                    <li  class="list-group-item" onclick='Listen(${v.songID})'>
 
                             <div class="player" onclick='GetContent(${v.songID})' style="width: 100%">
      
@@ -74,6 +75,8 @@ singer.drawTable = function () {
                                     <div class="text2"><i class="fal fa-play-circle"></i></div>
                                 </div>
                             </div>
+             <a id='audio' hidden href="${v.audio}"></a>
+                    <li>
                     `
                 );
             });
@@ -85,6 +88,58 @@ singer.drawTable = function () {
 
 
 
+function Listen(id) {
+    $("#miniplayer").show();
+    $.ajax({
+        url: `/Song/GetSongById/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+
+            $('#songposter').attr('src', data.result.poster),
+                $('#audio-player').attr('src', data.result.audio),
+                document.getElementById('songname').innerHTML = data.result.songName + "&ensp;  -" + "<h4 style='color: gray; font-size: 16px'> &ensp;" + data.result.singerNickName + "</h4>";
+
+        }
+
+    });
+
+}
+
+
+function audioPlayer() {
+    var currentSong = 0;
+    $("#audio-player")[0].src = $("#list li a")[0];
+    /* $("#audio-player")[0].play();*/
+    $("#list li").click(function (e) {
+        e.preventDefault();
+        $("#audio-player")[0].src = this;
+        $("#audio-player")[0].play();
+        $("#list li").removeClass("current-song");
+        currentSong = $(this).parent().index();
+        $(this).parent().addClass("current-song");
+    });
+
+    $("#audio-player")[0].addEventListener("ended", function () {
+        for (let i = 0; i < $("#list li a").length; i++) {
+            if ($("#audio-player")[0].src == $("#list li a")[i].href) {
+                currentSong = i + 1;
+            }
+        }
+        if (currentSong == $("#list li a").length) {
+            $("#miniplayer").hide();
+            $("#audio-player")[0].pause();
+        }
+        $("#list li").removeClass("current-song");
+        $("#list li:eq(" + currentSong + ")").addClass("current-song");
+        $(".audio-player img")[0].src = $("#list li img")[currentSong].src
+        document.getElementById('songname').innerHTML = $("#list li .title b")[currentSong].id + "&ensp;  -" + "<h4 style='color: gray; font-size: 16px'> &ensp;" + $("#list li .sub-title ")[currentSong].id + "</h4>";
+        $("#audio-player")[0].src = $("#list li a")[currentSong].href;
+        $("#audio-player")[0].play();
+    });
+}
+
+
 
 
 singer.init = function () {
@@ -94,7 +149,6 @@ singer.init = function () {
 };
 
 $(document).ready(function () {
-
     singer.init();
     $("#miniplayer").hide();
 });

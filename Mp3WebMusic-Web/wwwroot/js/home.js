@@ -50,7 +50,7 @@ song.drawTableNewSong = function () {
             $.each(data.result, function (i, v) {
                 $('#newsong').append(
 
-                    `<div class="col-3">
+                    `<div class="col-3" onclick="Listen(${v.songID})">
                         <img src="${v.poster}" class="image zoom " style="height: 85%; width: 95%;   border-radius: 3%;" />
                         <div class="middle">
                             <div class="text text-light"><i class="fal fa-play-circle"></i></div>
@@ -109,8 +109,8 @@ song.drawTableTopTopic = function () {
             $.each(data.topics, function (i, v) {
                 $('#topTopic').append(
 
-                    `<div class='col-3 myhover'>
-                       <div class="card img-fluid my-4 " style="border: none" onclick='Select(${v.topicID})' >
+                    `<div class='col-3 myhover' onclick='Detail(${v.topicID})'>
+                       <div class="card img-fluid my-4 " style="border: none"  >
                         <img class="card-img-top" src="${v.poster}" alt="Card image" >
                         <div class="card-img-overlay text-center">
                           <h4 class="card-title text-light" style="margin-top: 30px">${v.topicName}</h4>
@@ -126,7 +126,9 @@ song.drawTableTopTopic = function () {
 
     
 };
-
+function Detail(id) {
+    window.location.href = "/Topic/Detail/" + id;
+}
 function Listen(id) {
     $("#miniplayer").show();
     $.ajax({
@@ -135,7 +137,7 @@ function Listen(id) {
         dataType: "json",
         success: function (data) {
      
-            $('#songposter').attr('src', data.result.poster),
+                 $('#songposter').attr('src', data.result.poster),
                 $('#audio-player').attr('src', data.result.audio),
                 document.getElementById('songname').innerHTML = data.result.songName + "&ensp;  -" + "<h4 style='color: gray; font-size: 16px'> &ensp;"+  data.result.singerNickName+"</h4>";
 
@@ -165,8 +167,10 @@ function audioPlayer() {
                 currentSong = i + 1;
             }
         }
-        if (currentSong == $("#topsong li a").length)
-            currentSong = 0;
+        if (currentSong == $("#topsong li a").length) {
+            $("#miniplayer").hide();
+            $("#audio-player")[0].pause();
+        }
         $("#topsong li").removeClass("current-song");
         $("#topsong li:eq(" + currentSong + ")").addClass("current-song");
         $(".audio-player img")[0].src = $("#topsong li img")[currentSong].src

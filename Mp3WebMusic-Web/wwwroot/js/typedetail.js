@@ -1,10 +1,10 @@
-﻿var topic = {} || topic;
+﻿var types = {} || types;
 
 
-topic.drawTopic = function () {
-    var id = parseInt($('#topcid').val());
+types.drawTopic = function () {
+    var id = parseInt($('#typeid').val());
     $.ajax({
-        url: `/Topic/Get/ ${ id }`,
+        url: `/Type/Get/ ${ id }`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -17,7 +17,7 @@ topic.drawTopic = function () {
                  
                         <div class="carousel-item">
                                 <img src="${v.poster}" alt="Los Angeles" style="height: 300px; width: 100%; border-radius: 4px;">
-                                <h2 style="position: relative; margin-top: -20%; text-align: center; font-size: 100px" class=" text-light">${v.topicName}</h2>
+                                <h2 style="position: relative; margin-top: -20%; text-align: center; font-size: 100px" class=" text-light">${v.typeName}</h2>
                          </div>
                  
                        
@@ -30,17 +30,17 @@ topic.drawTopic = function () {
 
 };
 
-topic.drawTableSong = function () {
-    var id = parseInt($('#topcid').val());
+types.drawTableSong = function () {
+    var id = parseInt($('#typeid').val());
     $.ajax({
-        url: `/Song/GetsSongByTopic/${ id }`,
+        url: `/Song/GetsSongByType/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
 
             $.each(data.result, function (i, v) {
 
-                $('#listtopic').append(
+                $('#listtype').append(
                     `<li class="list-group-item" onclick='Listen(${v.songID})' >
                           
                             <div class="player"  style="width: 100%" >
@@ -94,44 +94,44 @@ function Listen(id) {
 
 function audioPlayer() {
     var currentSong = 0;
-  ;
+    $("#audio-player")[0].src = $("#listtype li a")[0];
     /* $("#audio-player")[0].play();*/
-    $("#listtopic li").click(function (e) {
+    $("#listtype li").click(function (e) {
         e.preventDefault();
         $("#audio-player")[0].src = this;
         $("#audio-player")[0].play();
-        $("#listtopic li").removeClass("current-song");
+        $("#listtype li").removeClass("current-song");
         currentSong = $(this).parent().index();
         $(this).parent().addClass("current-song");
     });
 
     $("#audio-player")[0].addEventListener("ended", function () {
-        for (let i = 0; i < $("#listtopic li a").length; i++) {
-            if ($("#audio-player")[0].src == $("#listtopic li a")[i].href) {
+        for (let i = 0; i < $("#listtype li a").length; i++) {
+            if ($("#audio-player")[0].src == $("#listtype li a")[i].href) {
                 currentSong = i + 1;
             }
         }
-        if (currentSong == $("#listtopic li a").length) {
+        if (currentSong == $("#listtype li a").length) {
             currentSong = 0;
         }
-        $("#listtopic li").removeClass("current-song");
-        $("#listtopic li:eq(" + currentSong + ")").addClass("current-song");
-        $(".audio-player img")[0].src = $("#listtopic li img")[currentSong].src
-        document.getElementById('songname').innerHTML = $("#listtopic li .title b")[currentSong].id + "&ensp;  -" + "<h4 style='color: gray; font-size: 16px'> &ensp;" + $("#listtopic li .sub-title ")[currentSong].id + "</h4>";
-        $("#audio-player")[0].src = $("#listtopic li a")[currentSong].href;
+        $("#listtype li").removeClass("current-song");
+        $("#listtype li:eq(" + currentSong + ")").addClass("current-song");
+        $(".audio-player img")[0].src = $("#listtype li img")[currentSong].src
+        document.getElementById('songname').innerHTML = $("#listtype li .title b")[currentSong].id + "&ensp;  -" + "<h4 style='color: gray; font-size: 16px'> &ensp;" + $("#listtype li .sub-title ")[currentSong].id + "</h4>";
+        $("#audio-player")[0].src = $("#listtype li a")[currentSong].href;
         $("#audio-player")[0].play();
     });
 }
 
 
-topic.init = function () {
-    topic.drawTopic();
-    topic.drawTableSong();
+types.init = function () {
+    types.drawTopic();
+    types.drawTableSong();
     audioPlayer();
 };
 
 $(document).ready(function () {
     $("#miniplayer").hide();
-    topic.init();
+    types.init();
 
 });

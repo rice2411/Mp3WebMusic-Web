@@ -3,12 +3,12 @@ var songs = [];
 var songsid = [];
 list.createlist = function () {
     $.ajax({
-        url: "/Home/GetsSongTrending",
+        url: "/Song/GetsSongIsDelete",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#mylist').empty();
-            $.each(data.songs, function (i, v) {
+            $.each(data.result, function (i, v) {
                 songs.push(v.songName)
                 songsid.push(v.songID)
             });
