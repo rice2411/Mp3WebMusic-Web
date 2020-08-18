@@ -95,5 +95,22 @@ namespace Mp3WebMusic_Web.Controllers
                                                 );
             return Json(new { result });
         }
+      /*  public IActionResult Search(string keyword)
+        {
+            ///Cái này là list sản phẩm
+            var types = new List<Types>();
+            types = ApiHelper<List<Types>>.HttpGetAsync($"{Helper.ApiUrl}Api/Type/GetsTypeIsNotDelete");
+         
+            /////// Tạo sẵn 1 list để lưu kết quả
+            var searchReult = new List<Types>();
+            foreach(var item in  types)
+            {
+                if(item.TypeName.Contains(keyword))
+                {
+                    searchReult.Add(item);
+                }    
+            }
+            return View("~/Home/Index", searchReult);
+        }*/
     }
 }

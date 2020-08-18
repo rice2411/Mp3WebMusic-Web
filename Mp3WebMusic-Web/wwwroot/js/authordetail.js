@@ -96,5 +96,5 @@ author.init = function () {
 $(document).ready(function () {
 
     author.init();
-  
+    $("#miniplayer").hide();
 });

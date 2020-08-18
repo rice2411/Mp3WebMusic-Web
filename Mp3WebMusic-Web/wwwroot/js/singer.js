@@ -134,8 +134,9 @@ singer.reset = function () {
 }
 
 singer.add = function () {
-    var saveObj = {};
-    if ($('#SingerName').val() != "" && $('#SingerNickName').val() != "" && $('#Introduce').val() != "" && $('#Avatar').attr('src') != "") {
+    if ($('#addSingerForm').valid()) {
+        var saveObj = {};
+
         saveObj.singerName = $('#SingerName').val().trim();
         saveObj.singerNickName = $('#SingerNickName').val().trim();
         saveObj.introduce = $('#Introduce').val().trim();
@@ -153,22 +154,12 @@ singer.add = function () {
             }
         });
     }
-    else {
-        $('#addSinger').modal('hide');
-        bootbox.alert({
-            message: "Add Failed",
-            closeButton: false,
-            callback: function () {
-                $('#addSinger').modal('show')
-
-            }
-        })
-    }
+  
 }
 
 singer.edit = function () {
     var saveObj = {};
-    if ($('#editSingerName').val() != "" && $('#editSingerNickName').val() != "" && $('#editIntroduce').val() != "" && $('#editAvatar').attr('src') != "") {
+    if ($('#editSingerForm').valid()) {
         saveObj.SingerName = $('#editSingerName').val();
         saveObj.SingerID = parseInt($('#editSingerID').val());
         saveObj.SingerNickName = $('#editSingerNickName').val();
@@ -228,5 +219,32 @@ singer.init = function () {
 $(document).ready(function () {
 
     singer.init();
-  
+    $("#addSingerForm").validate({
+        rules: {
+            SingerName: "required",
+            SingerNickName: "required",
+            Introduce: "required"
+
+        },
+        messages: {
+            SingerName: "This field is required",
+            SingerNickName: "This field is required",
+            Introduce: "This field is required",
+         
+        }
+    });
+    $("#editSingerForm").validate({
+        rules: {
+            editSingerName: "required",
+            editSingerNickName: "required",
+            editIntroduce: "required"
+
+        },
+        messages: {
+            editSingerName: "This field is required",
+            editSingerNickName: "This field is required",
+            editIntroduce: "This field is required",
+
+        }
+    });
 });

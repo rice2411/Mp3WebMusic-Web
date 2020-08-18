@@ -43,5 +43,5 @@ types.init = function () {
 $(document).ready(function () {
 
     types.init();
-  
+    $("#miniplayer").hide();
 });

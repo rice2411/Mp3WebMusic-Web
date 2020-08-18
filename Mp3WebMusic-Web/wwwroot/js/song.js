@@ -39,7 +39,7 @@ song.drawTable = function () {
     });
 };
 song.openAddsong = function () {
-
+ 
     $('#addSong').appendTo("body").modal('show');
 };
 song.get = function (id) {
@@ -64,8 +64,9 @@ song.get = function (id) {
     });
 }
 song.edit = function () {
-    var saveObj = {};
-    if ($('#editSongName').val() != "" && $('#editSongType').val() != "" && $('#editSongTopic').val() != "" && $('#editSongSinger').val() != "" && $('#editSongAuthor').val() != "" && $('#editSongAudio').attr('src') != "") {
+  
+    if ($('#editSongForm').valid()) {
+        var saveObj = {};
         saveObj.songName = $('#editSongName').val();
         saveObj.songID = parseInt($('#SongID').val());
         saveObj.typeID = parseInt($('#editSongType').val());
@@ -87,16 +88,7 @@ song.edit = function () {
             }
 
         });
-    } else {
-        $('#editSong').modal('hide');
-        bootbox.alert({
-            message: "Add Failed",
-            closeButton: false,
-            callback: function () {
-                $('#editSong').modal('show')
-
-            }
-        })
+     
     }
 }
 function ChangeStatus(id) {
@@ -204,8 +196,11 @@ song.editAudio = function (input) {
 
 song.add = function () {
 
-    var saveObj = {};
-    if ($('#songName').val() != "" && $('#songType').val() != "" && $('#songTopic').val() != "" && $('#songSinger').val() != "" && $('#songAuthor').val() != "" && $('#songAudio').attr('src')!="" ) {
+
+    if ($('#addSongForm').valid()) {
+
+        var saveObj = {};
+
         saveObj.songName = $('#songName').val().trim();
         saveObj.typeID = parseInt($('#songType').val());
         saveObj.topicID = parseInt($('#songTopic').val());
@@ -227,31 +222,59 @@ song.add = function () {
 
                 })
                 $('#addSong').modal('hide');
-          
+
             },
-          
 
 
         });
-    } else {
-        $('#addSong').modal('hide');
-        bootbox.alert({
-            message: "Add Failed",
-            closeButton: false,
-            callback: function () {
-                $('#addSong').modal('show')
-                 
-            }
-        })
     }
+    
 };
+
 
 song.init = function () {
     song.drawTable();
-   
+   ;
 };
 
 $(document).ready(function () {
     song.init();
-  
+    $("#addSongForm").validate({
+        rules: {
+            songName: "required",
+            singerNickName: "required",
+            authorName: "required",
+            type: "required",
+            topic: "required",
+            audio: "required"
+         
+        },
+        messages: {
+            songName: "This field is required",
+            singerNickName: "This field is required",
+            authorName: "This field is required",
+            type: "This field is required",
+            topic: "This field is required",
+            audio: "This field is required"
+        }
+    });
+    $("#editSongForm").validate({
+        rules: {
+            editsongName: "required",
+            editsingerNickName: "required",
+            editauthorName: "required",
+            edittype: "required",
+            edittopic: "required",
+            editaudio: "required"
+
+        },
+        messages: {
+            editsongName: "This field is required",
+            editsingerNickName: "This field is required",
+            editauthorName: "This field is required",
+            edittype: "This field is required",
+            edittopic: "This field is required",
+            editaudio: "This field is required"
+        }
+    });
 });

@@ -52,7 +52,7 @@ song.drawTableNewSong = function () {
 
                     `<div class="col-3">
                         <img src="${v.poster}" class="image zoom " style="height: 85%; width: 95%;   border-radius: 3%;" />
-                        <div class="middle3">
+                        <div class="middle">
                             <div class="text text-light"><i class="fal fa-play-circle"></i></div>
                         </div>
                        <div class="my-2 ">

@@ -233,3 +233,7 @@ input {
     width: 100%;
     background: rgba(255, 255, 255, 0.8) url(../images/loading.gif) 50% 50% no-repeat;
 }
+.error{
+    margin-top: 10px;
+    color: red;
+}

@@ -173,46 +173,70 @@ topic.reset = function () {
 }
 topic.add = function () {
 
-    let topicObj = {};
+    if ($('#addTopicForm').valid()) {
+        let topicObj = {};
 
-    topicObj.topicName = $('#TopicName').val();
-    topicObj.Poster = $('#Poster').attr('src');
-    $.ajax({
-        url: '/Topic/Add',
-        method: "POST",
-        dataType: "JSON",
-        contentType: "application/JSON",
-        data: JSON.stringify(topicObj),
-        success: function (data) {
-            topic.drawTable();
-            $('#addTopic').modal('hide');
-            bootbox.alert(data.result.message);
-        }
-    })
+        topicObj.topicName = $('#TopicName').val();
+        topicObj.Poster = $('#Poster').attr('src');
+        $.ajax({
+            url: '/Topic/Add',
+            method: "POST",
+            dataType: "JSON",
+            contentType: "application/JSON",
+            data: JSON.stringify(topicObj),
+            success: function (data) {
+                topic.drawTable();
+                $('#addTopic').modal('hide');
+                bootbox.alert(data.result.message);
+            }
+        })
+    }
 };
 topic.edit = function () {
-    var saveObj = {};
-    saveObj.TopicName = $('#TopicNameEdit').val();
-    saveObj.TopicID = parseInt($('#TopicIDEdit').val());
-    saveObj.Poster = $('#editPoster').attr('src');
-    $.ajax({
-        url: `/Topic/Edit/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(saveObj),
-        success: function (data) {
-            $('#editTopic').modal('hide');
-            bootbox.alert(data.result.message);
-            topic.drawTable();
-        }
-    });
+    if ($('#editTopicForm').valid()) {
+        var saveObj = {};
+        saveObj.TopicName = $('#TopicNameEdit').val();
+        saveObj.TopicID = parseInt($('#TopicIDEdit').val());
+        saveObj.Poster = $('#editPoster').attr('src');
+        $.ajax({
+            url: `/Topic/Edit/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveObj),
+            success: function (data) {
+                $('#editTopic').modal('hide');
+                bootbox.alert(data.result.message);
+                topic.drawTable();
+            }
+        });
+    }
 }
 topic.init = function () {
     topic.drawTable();
 };
 
+
 $(document).ready(function () {
     topic.init();
+    $("#addTopicForm").validate({
+        rules: {
+            TopicName: "required",
+            Poster: "required"
 
+        },
+        messages: {
+            editTopicName: "This field is required",
+            Poster: "This field is required"
+        }
+    });
+    $("#editTopicForm").validate({
+        rules: {
+            editTopicName: "required"
+
+        },
+        messages: {
+            editTopicName: "This field is required"
+        }
+    });
 });

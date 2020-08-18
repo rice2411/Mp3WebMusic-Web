@@ -44,5 +44,5 @@ singer.init = function () {
 $(document).ready(function () {
 
     singer.init();
-  
+    $("#miniplayer").hide();
 });

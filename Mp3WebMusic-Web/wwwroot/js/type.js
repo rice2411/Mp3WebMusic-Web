@@ -189,4 +189,24 @@ types.init = function () {
 
 $(document).ready(function () {
     types.init();
+    $("#addTypeForm").validate({
+        rules: {
+            TypeName: "required"
+
+
+        },
+        messages: {
+            TypeName: "This field is required"
+         
+        }
+    });
+    $("#editTypeForm").validate({
+        rules: {
+            editTopicName: "required"
+
+        },
+        messages: {
+            editTopicName: "This field is required"
+        }
+    });
 });

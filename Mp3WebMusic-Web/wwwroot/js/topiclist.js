@@ -43,5 +43,5 @@ topic.init = function () {
 $(document).ready(function () {
 
     topic.init();
-  
+    $("#miniplayer").hide();
 });
