@@ -1,6 +1,8 @@
 var list = {} || list;
 var songs = [];
 var songsid = [];
+var imgs = []
+var singers = []
 list.createlist = function () {
     $.ajax({
         url: "/Song/GetsSongIsDelete",
@@ -11,6 +13,8 @@ list.createlist = function () {
             $.each(data.result, function (i, v) {
                 songs.push(v.songName)
                 songsid.push(v.songID)
+                imgs.push(v.poster);
+                singers.push(v.singerNickName);
             });
         }
     })
@@ -33,7 +37,7 @@ $(document).ready(function () {
     
 });
 
-function autocomplete(inp, arr,arr2) {
+function autocomplete(inp, arr,arr2,arr3,arr4) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -58,8 +62,20 @@ function autocomplete(inp, arr,arr2) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/
-                b.innerHTML =  arr[i].substr(0, val.length);
-                b.innerHTML += arr[i].substr(val.length);
+                b.innerHTML = `  
+                    <div style="border:none; padding: 0px">
+
+
+
+                            <img src="${arr3[i]}" style="width: 30px; height: 30px">
+                              
+                             <b id='${arr[i]}'>${arr[i]} - </b>${arr4[i]}
+                    </div>
+
+                       
+                    `
+     /*           b.innerHTML =  arr[i].substr(0, val.length);*/
+              /*  b.innerHTML += arr[i].substr(val.length);*/
                 /*insert a input field that will hold the current array item's value:*/
                 b.innerHTML += "<input type='hidden' id='songname' value='" + arr[i] + "'>";
                 b.innerHTML += "<input type='hidden' id='songid'value='" + arr2[i] + "'>";
@@ -68,7 +84,21 @@ function autocomplete(inp, arr,arr2) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = document.getElementById("songname").value;
                     var id = document.getElementById('songid').value;
-                    window.location.href = '/Song/Detail/' + id;
+                    $("#miniplayer").show();
+                    $.ajax({
+                        url: `/Song/GetSongById/${id}`,
+                        method: "GET",
+                        dataType: "json",
+                        success: function (data) {
+
+                            $('#songposter').attr('src', data.result.poster),
+                                $('#audio-player').attr('src', data.result.audio),
+                                document.getElementById('songname').innerHTML = data.result.songName + "&ensp;  -" + "<h4 style='color: gray; font-size: 16px'> &ensp;" + data.result.singerNickName + "</h4>";
+
+                        }
+
+                    });
+
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
@@ -139,5 +169,5 @@ function autocomplete(inp, arr,arr2) {
 
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), songs, songsid);
+autocomplete(document.getElementById("myInput"), songs, songsid, imgs, singers);
 

@@ -32,6 +32,12 @@ namespace Mp3WebMusic_Web.Controllers
             };
             return View("~/Views/Home/Listen.cshtml", song);
         }
+        public ViewResult Search()
+        {
+          
+            return View("~/Views/Home/SongSearch.cshtml");
+        }
+        
         public ViewResult Song()
         {
            

@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+@model Song
+    <link rel="stylesheet" href="~/css/resize.css" />
+    <link rel="stylesheet" href="~/css/musicard.css" />
+    <style>
+        #list > div:hover {
+            background-color: #2a1b38;
+        }
+    </style>
+
+        <input hidden asp-for="SongID" id="songid" />
+
+
+
+
+        <div >
+            <h2 class="text-light">Bài Hát: </h2>
+            <hr style="border-color: #22142e" />
+            <ul class="list-group" id="listsong">
+            </ul>
+        </div>
+
+
+    
+    @section Scripts{
+        <script src="~/js/songsearch.js" asp-append-version="true"></script>
+
+    }

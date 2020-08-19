@@ -57,9 +57,9 @@ singer.drawTable = function () {
 
                 $('#list').append(
                     `  
-                    <li  class="list-group-item" onclick='Listen(${v.songID})'>
+                    <li class="list-group-item" onclick='Listen(${v.songID})'>
 
-                            <div class="player" onclick='GetContent(${v.songID})' style="width: 100%">
+                            <div class="player" style="width: 100%">
      
                                 <div class="album-art" style="width: 10%! important">
                                     <div  class="cover " >
@@ -68,14 +68,14 @@ singer.drawTable = function () {
                                     </div>
                                 </div>
                                 <div class="description">
-                                    <div class="title" ><b>${v.songName} </b></div>
-                                    <div class="sub-title">${v.singerNickName}</div>
+                                    <div class="title" ><b id="${v.songName}">${v.songName} </b></div>
+                                    <div class="sub-title" id="${v.singerNickName}">${v.singerNickName}</div>
                                 </div>
                                 <div class="middle3">
                                     <div class="text2"><i class="fal fa-play-circle"></i></div>
                                 </div>
                             </div>
-             <a id='audio' hidden href="${v.audio}"></a>
+                             <a  hidden href="${v.audio}"></a>
                     <li>
                     `
                 );
@@ -96,7 +96,7 @@ function Listen(id) {
         dataType: "json",
         success: function (data) {
 
-            $('#songposter').attr('src', data.result.poster),
+                $('#songposter').attr('src', data.result.poster),
                 $('#audio-player').attr('src', data.result.audio),
                 document.getElementById('songname').innerHTML = data.result.songName + "&ensp;  -" + "<h4 style='color: gray; font-size: 16px'> &ensp;" + data.result.singerNickName + "</h4>";
 
@@ -127,8 +127,7 @@ function audioPlayer() {
             }
         }
         if (currentSong == $("#list li a").length) {
-            $("#miniplayer").hide();
-            $("#audio-player")[0].pause();
+            currentSong = 0
         }
         $("#list li").removeClass("current-song");
         $("#list li:eq(" + currentSong + ")").addClass("current-song");
@@ -146,6 +145,7 @@ singer.init = function () {
     singer.drawSinger();
     singer.drawSingerDetail();
     singer.drawTable();
+    audioPlayer();
 };
 
 $(document).ready(function () {
